@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FeynLearn — Learning by Teaching</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2a52;
+    --green: #2d6a4f;
+    --peach: #f4a58a;
+    --cream: #fdf6ee;
+    --dark: #111827;
+    --text: #374151;
+    --light-green: #52b788;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 5%;
+    background: rgba(253,246,238,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(26,42,82,0.08);
+  }
+  
+.nav-logo img {
+    height: 90px;
+    width: 120px;
+}
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 900;
+    color: var(--navy); letter-spacing: 0.04em;
+  }
+  .nav-logo span { color: var(--light-green); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--navy);
+    font-size: 0.9rem; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--light-green); }
+  .nav-cta {
+    background: var(--navy); color: #fff;
+    padding: 0.55rem 1.4rem; border-radius: 50px;
+    font-size: 0.88rem; font-weight: 500;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--green); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 7rem 5% 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-blob {
+    position: absolute; border-radius: 50%;
+    opacity: 0.18; pointer-events: none;
+  }
+  .blob-1 { width: 480px; height: 480px; background: var(--green); top: -80px; right: -100px; }
+  .blob-2 { width: 320px; height: 320px; background: var(--peach); bottom: -60px; left: 10%; }
+  .blob-3 { width: 200px; height: 200px; background: var(--navy); top: 40%; left: -60px; }
+
+  .hero-text { position: relative; z-index: 2; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(82,183,136,0.15);
+    color: var(--green);
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 0.35rem 0.9rem;
+    border-radius: 50px; margin-bottom: 1.4rem;
+  }
+  .badge-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--light-green);
+    animation: blink 2s ease infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 900; line-height: 1.1;
+    color: var(--navy); margin-bottom: 1.4rem;
+  }
+  .hero-title em { font-style: italic; color: var(--light-green); }
+  .hero-subtitle {
+    font-size: 1.1rem; line-height: 1.7;
+    color: var(--text); max-width: 480px; margin-bottom: 2.4rem;
+  }
+  .hero-cta-group { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--navy); color: #fff;
+    padding: 0.85rem 2rem; border-radius: 50px;
+    font-size: 0.95rem; font-weight: 500;
+    text-decoration: none; transition: transform 0.2s, background 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); background: var(--green); }
+  .btn-ghost {
+    color: var(--navy); font-size: 0.95rem; font-weight: 500;
+    text-decoration: none; display: flex; align-items: center; gap: 0.4rem;
+    transition: gap 0.2s;
+  }
+  .btn-ghost:hover { gap: 0.7rem; }
+  .btn-ghost::after { content: '→'; font-size: 1.1rem; }
+
+  .hero-visual {
+    position: relative; z-index: 2;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .quote-card {
+    background: var(--navy);
+    border-radius: 2rem; padding: 2.5rem 2.2rem;
+    max-width: 380px; width: 100%;
+    box-shadow: 0 30px 80px rgba(26,42,82,0.22);
+    position: relative;
+    animation: float 5s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .quote-icon { font-size: 4rem; color: rgba(255,255,255,0.15); line-height: 1; margin-bottom: 0.8rem; }
+  .quote-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-style: italic; font-weight: 400;
+    color: #fff; line-height: 1.5; margin-bottom: 0.8rem;
+  }
+  .quote-attr { font-size: 0.82rem; color: var(--peach); letter-spacing: 0.08em; text-transform: uppercase; }
+  .card-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 1.2rem 0; }
+  .card-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .card-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 900;
+    display: block; line-height: 1;
+  }
+  .card-stat-lbl { font-size: 0.7rem; color: rgba(255,255,255,0.45); margin-top: 0.2rem; line-height: 1.3; }
+
+  .hero-chip {
+    position: absolute; background: #fff;
+    border-radius: 50px; padding: 0.7rem 1.2rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    font-size: 0.82rem; font-weight: 500; white-space: nowrap;
+    display: flex; align-items: center; gap: 0.4rem; z-index: 3;
+  }
+  .chip-1 { top: -18px; right: -24px; }
+  .chip-2 { bottom: 20px; left: -28px; }
+
+  /* ── SECTION BASE ── */
+  .section { padding: 6rem 5%; }
+  .section-label {
+    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--light-green); font-weight: 500; margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 900; color: var(--navy); line-height: 1.2; margin-bottom: 1rem;
+  }
+  .section-title em { font-style: italic; color: var(--light-green); }
+  .section-title .rust { color: var(--peach); }
+  .section-sub { font-size: 1rem; color: var(--text); max-width: 560px; line-height: 1.7; }
+
+  /* ── PROBLEM ── */
+  .problem-layout {
+    display: grid; grid-template-columns: 1fr 1.2fr;
+    gap: 4rem; align-items: center; margin-top: 3rem;
+  }
+  .problem-cards { display: flex; flex-direction: column; gap: 1.2rem; }
+  .prob-card {
+    display: flex; gap: 1.2rem; align-items: flex-start;
+    background: #fff; border: 1px solid rgba(26,42,82,0.07);
+    border-radius: 1.2rem; padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .prob-card::before {
+    content: ''; position: absolute;
+    left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--light-green); border-radius: 0 2px 2px 0;
+    transform: scaleY(0); transition: transform 0.25s;
+  }
+  .prob-card:hover { transform: translateX(6px); box-shadow: 0 8px 28px rgba(26,42,82,0.08); }
+  .prob-card:hover::before { transform: scaleY(1); }
+  .prob-icon-wrap {
+    width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+  }
+  .pi1 { background: rgba(244,165,138,0.2); }
+  .pi2 { background: rgba(82,183,136,0.12); }
+  .pi3 { background: rgba(26,42,82,0.07); }
+  .prob-card h3 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--navy); margin-bottom: 0.35rem; }
+  .prob-card p { font-size: 0.87rem; line-height: 1.65; color: #6b7280; }
+
+  /* Problem visual panel */
+  .problem-visual {
+    background: var(--navy);
+    border-radius: 1.5rem; padding: 2.5rem 2.2rem;
+    position: relative; overflow: hidden;
+  }
+  .problem-visual::after {
+    content: '';
+    position: absolute; bottom: -40px; right: -40px;
+    width: 180px; height: 180px; border-radius: 50%;
+    background: rgba(82,183,136,0.1);
+  }
+  .pv-label {
+    font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4); margin-bottom: 1.5rem;
+  }
+  .pv-stat { display: flex; flex-direction: column; gap: 1.2rem; }
+  .pv-stat-row { display: flex; align-items: center; gap: 1rem; }
+  .pv-bar-track {
+    flex: 1; height: 8px; background: rgba(255,255,255,0.08);
+    border-radius: 4px; overflow: hidden;
+  }
+  .pv-bar-fill { height: 100%; border-radius: 4px; animation: barGrow 1.2s ease both; }
+  @keyframes barGrow { from { width: 0 !important; } }
+  .pv-bar-label { font-size: 0.8rem; color: rgba(255,255,255,0.7); min-width: 130px; font-weight: 500; }
+  .pv-bar-pct { font-size: 0.75rem; color: rgba(255,255,255,0.45); min-width: 32px; text-align: right; }
+  .pv-caption {
+    margin-top: 2rem; padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.82rem; color: rgba(255,255,255,0.45); line-height: 1.6;
+  }
+
+  /* ── SCIENCE (dark) ── */
+  .how-bg { background: var(--navy); }
+  .how-inner { max-width: 1100px; margin: 0 auto; }
+  .how-header { text-align: center; margin-bottom: 4rem; }
+  .how-header .section-label { color: var(--peach); }
+  .how-header .section-title { color: #fff; }
+  .how-header .section-sub { color: rgba(255,255,255,0.65); margin: 0 auto; }
+
+  .science-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .sci-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 1.5rem; padding: 2.2rem;
+    position: relative; overflow: hidden;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .sci-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  }
+  .sc1::before { background: linear-gradient(90deg, var(--light-green), transparent); }
+  .sc2::before { background: linear-gradient(90deg, var(--peach), transparent); }
+  .sci-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); }
+  .sci-tag {
+    display: inline-block;
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 0.25rem 0.7rem; border-radius: 30px; margin-bottom: 1rem;
+  }
+  .st-green { background: rgba(82,183,136,0.15); color: var(--light-green); }
+  .st-peach { background: rgba(244,165,138,0.2); color: var(--peach); }
+  .sci-card h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: #fff; margin-bottom: 0.8rem; }
+  .sci-card p { font-size: 0.88rem; line-height: 1.75; color: rgba(255,255,255,0.6); }
+
+  .science-quote {
+    grid-column: 1 / -1;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 1.5rem; padding: 2rem 2.5rem;
+    display: flex; align-items: center; gap: 2rem;
+    transition: background 0.2s;
+  }
+  .science-quote:hover { background: rgba(255,255,255,0.08); }
+  .sq-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem; line-height: 0.7;
+    color: rgba(255,255,255,0.08); flex-shrink: 0;
+  }
+  .sq-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic; font-size: 1.3rem; font-weight: 400;
+    color: #fff; line-height: 1.4; flex: 1;
+  }
+  .sq-attr {
+    font-size: 0.72rem; color: var(--peach);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-top: 0.6rem; display: block;
+  }
+
+  /* ── SOLUTION / HOW IT WORKS ── */
+  .solution-intro-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: start; margin-top: 3rem;
+  }
+  .sol-steps { display: flex; flex-direction: column; gap: 0; }
+  .sol-step {
+    display: flex; gap: 1.2rem;
+    padding: 1.8rem 0;
+    border-bottom: 1px solid rgba(26,42,82,0.08);
+    transition: background 0.2s;
+  }
+  .sol-step:last-child { border-bottom: none; }
+  .sol-step:hover .ss-icon-wrap { transform: scale(1.1); }
+  .ss-num {
+    font-size: 0.72rem; letter-spacing: 0.1em;
+    color: #9ca3af; margin-top: 0.2rem; min-width: 24px;
+  }
+  .ss-icon-wrap {
+    width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; transition: transform 0.2s;
+  }
+  .si1 { background: rgba(82,183,136,0.12); }
+  .si2 { background: rgba(244,165,138,0.2); }
+  .si3 { background: rgba(26,42,82,0.07); }
+  .si4 { background: rgba(255,200,70,0.15); }
+  .ss-content h3 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--navy); margin-bottom: 0.35rem; }
+  .ss-content p { font-size: 0.87rem; line-height: 1.65; color: #6b7280; }
+  .ss-badge {
+    display: inline-block; background: rgba(82,183,136,0.15);
+    color: var(--light-green); font-size: 0.72rem; font-weight: 500;
+    padding: 0.2rem 0.65rem; border-radius: 50px; margin-top: 0.6rem;
+  }
+
+  /* Solution feature box */
+  .sol-feature-box {
+    background: var(--navy);
+    border-radius: 1.5rem; padding: 2.5rem;
+    display: flex; flex-direction: column; gap: 1.5rem;
+    position: sticky; top: 90px;
+  }
+  .sfb-head {
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--peach); margin-bottom: 0.4rem;
+  }
+  .sfb-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 700; color: #fff; line-height: 1.3;
+  }
+  .sfb-title em { font-style: italic; color: var(--light-green); }
+  .sfb-body { font-size: 0.9rem; line-height: 1.75; color: rgba(255,255,255,0.55); }
+  .sfb-divider { height: 1px; background: rgba(255,255,255,0.08); }
+  .sfb-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .sfb-tag {
+    padding: 0.3rem 0.8rem; border-radius: 50px;
+    font-size: 0.75rem; font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.55);
+    transition: all 0.2s; text-decoration: none;
+  }
+  .sfb-tag:hover { border-color: var(--light-green); color: var(--light-green); background: rgba(82,183,136,0.08); }
+
+  /* ── MARKET ── */
+  .market-row { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .market-stats { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 1.5rem; }
+  .mstat {
+    display: flex; align-items: center; gap: 1.5rem;
+    padding: 1.4rem 1.6rem; background: #fff;
+    border-radius: 1.2rem; border: 1px solid rgba(26,42,82,0.07);
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .mstat:hover { transform: translateX(6px); border-color: rgba(82,183,136,0.3); }
+  .mstat-bar { width: 5px; height: 52px; border-radius: 3px; flex-shrink: 0; }
+  .mb-1 { background: var(--light-green); }
+  .mb-2 { background: var(--navy); }
+  .mb-3 { background: var(--peach); }
+  .mstat-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--navy); }
+  .mstat-label { font-size: 0.82rem; color: #9ca3af; margin-top: 0.1rem; }
+
+  /* Roadmap */
+  .market-roadmap { position: relative; max-width: 600px; }
+  .market-roadmap::before {
+    content: ''; position: absolute;
+    left: 19px; top: 10px; bottom: 10px; width: 1px;
+    background: rgba(26,42,82,0.1);
+  }
+  .road-step {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding-bottom: 1.5rem; position: relative;
+  }
+  .road-step:last-child { padding-bottom: 0; }
+  .road-dot {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--navy); color: #fff;
+    font-size: 0.72rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    position: relative; z-index: 1;
+    transition: all 0.2s;
+  }
+  .road-dot.active { background: var(--light-green); box-shadow: 0 0 0 4px rgba(82,183,136,0.15); }
+  .road-step:nth-child(2) .road-dot { background: var(--light-green); }
+  .road-step:nth-child(3) .road-dot { background: var(--peach); color: var(--navy); }
+  .road-step:nth-child(4) .road-dot { background: var(--green); }
+  .road-content h4 { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 0.25rem; padding-top: 0.4rem; }
+  .road-content p { font-size: 0.83rem; color: #9ca3af; line-height: 1.55; }
+  .rm-tag {
+    display: inline-block; margin-top: 0.4rem;
+    font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.18rem 0.55rem; border-radius: 20px;
+    background: rgba(82,183,136,0.12); color: var(--light-green);
+  }
+
+  /* ── REVENUE ── */
+  .revenue-bg { background: #f0f4f0; }
+  .rev-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; }
+  .rev-card {
+    background: #fff; border-radius: 1.5rem; overflow: hidden;
+    border: 1px solid rgba(26,42,82,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .rev-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(26,42,82,0.1); }
+  .rev-card-top { padding: 1.8rem 1.8rem 1.4rem; }
+  .rct1 { background: rgba(82,183,136,0.1); }
+  .rct2 { background: rgba(244,165,138,0.15); }
+  .rct3 { background: rgba(26,42,82,0.06); }
+  .rev-card-icon { font-size: 2rem; margin-bottom: 0.8rem; display: block; }
+  .rev-card-top h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--navy); }
+  .rev-card-body { padding: 1.3rem 1.8rem 1.8rem; }
+  .rev-card-body p { font-size: 0.87rem; line-height: 1.65; color: #6b7280; }
+  .rev-detail {
+    margin-top: 0.8rem; font-size: 0.78rem; color: #9ca3af;
+    border-top: 1px solid rgba(26,42,82,0.07); padding-top: 0.7rem;
+  }
+  .rev-detail span { color: var(--light-green); font-weight: 600; }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 6rem 5%; text-align: center;
+    background: var(--navy); position: relative; overflow: hidden;
+  }
+  .cta-blob { position: absolute; border-radius: 50%; pointer-events: none; }
+  .cb1 { width: 400px; height: 400px; background: rgba(82,183,136,0.12); top: -100px; left: -100px; }
+  .cb2 { width: 300px; height: 300px; background: rgba(244,165,138,0.12); bottom: -80px; right: -80px; }
+  .cta-section .section-label { color: var(--peach); }
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 900;
+    color: #fff; line-height: 1.2; margin: 0.8rem auto 1.5rem; max-width: 700px;
+  }
+  .cta-title em { font-style: italic; color: var(--peach); }
+  .cta-sub { color: rgba(255,255,255,0.6); font-size: 1rem; max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.7; }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
+  .btn-light {
+    background: #fff; color: var(--navy);
+    padding: 0.85rem 2.2rem; border-radius: 50px;
+    font-size: 0.95rem; font-weight: 600;
+    text-decoration: none; display: inline-block;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-light:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.2); }
+  .btn-outline {
+    border: 1px solid rgba(255,255,255,0.3); color: rgba(255,255,255,0.75);
+    padding: 0.85rem 2.2rem; border-radius: 50px;
+    font-size: 0.95rem; font-weight: 500;
+    text-decoration: none; display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
+  .cta-contacts { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+  .contact-chip {
+    font-size: 0.85rem; color: rgba(255,255,255,0.45);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .contact-chip:hover { color: var(--peach); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0e1929; color: rgba(255,255,255,0.35);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 0.5rem;
+    padding: 1.8rem 5%; font-size: 0.82rem;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 900; color: rgba(255,255,255,0.5);
+  }
+  .footer-logo span { color: var(--light-green); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    .hero { grid-template-columns: 1fr; gap: 3rem; padding-top: 8rem; }
+    .hero-visual { display: none; }
+    .problem-layout, .solution-intro-grid, .market-row { grid-template-columns: 1fr; }
+    .science-grid { grid-template-columns: 1fr; }
+    .science-quote { grid-column: auto; }
+    .rev-grid { grid-template-columns: 1fr; }
+    .sol-feature-box { position: static; }
+  }
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .section { padding: 5rem 4%; }
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: none; }
+  .delay-1 { transition-delay: 0.1s; }
+  .delay-2 { transition-delay: 0.2s; }
+  .delay-3 { transition-delay: 0.3s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <a href="index.html">
+        <img src="logoo2.png" alt="Website Logo">
+    </a>
+</div>
+  <ul class="nav-links">
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#science">Science</a></li>
+    <li><a href="#solution">How It Works</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    
+  </ul>
+  <a href="#cta" class="nav-cta">Join the Pilot</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-blob blob-1"></div>
+  <div class="hero-blob blob-2"></div>
+  <div class="hero-blob blob-3"></div>
+
+  <div class="hero-text fade-in">
+    <span class="hero-eyebrow">
+      <span class="badge-dot"></span>
+      Peer-to-Peer Learning Platform
+    </span>
+    <h1 class="hero-title">
+      Learning by<br>
+      <em>Teaching.</em>
+    </h1>
+    <p class="hero-subtitle">
+      FeynLearn is a platform where learners deepen mastery by teaching others — turning every student into both a learner and a teacher. Way more than just sharing knowledge.
+    </p>
+    <div class="hero-cta-group">
+      <a href="#solution" class="btn-primary">Explore the Platform</a>
+      <a href="#science" class="btn-ghost">The Science Behind It</a>
+    </div>
+  </div>
+
+  <div class="hero-visual fade-in">
+    <div class="hero-chip chip-1">🎯 Feynman Technique</div>
+    <div class="hero-chip chip-2">📈 120M+ Learners Worldwide</div>
+    <div class="quote-card">
+      <div class="quote-icon">"</div>
+      <p class="quote-text">To Teach, is to Learn Twice Over</p>
+      <p class="quote-attr">— Joseph Joubert</p>
+      <div class="card-divider"></div>
+      <div class="card-stats">
+        <div>
+          <span class="card-stat-num" style="color: var(--light-green);">2×</span>
+          <p class="card-stat-lbl">Deeper retention through teaching</p>
+        </div>
+        <div>
+          <span class="card-stat-num" style="color: var(--peach);">3</span>
+          <p class="card-stat-lbl">Core learning systems on one platform</p>
+        </div>
+        <div>
+          <span class="card-stat-num" style="color:#fff;">200K</span>
+          <p class="card-stat-lbl">Initial target market in India</p>
+        </div>
+        <div>
+          <span class="card-stat-num" style="color:#82b4ff;">4</span>
+          <p class="card-stat-lbl">Phases to global scale</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="section" id="problem">
+  <div class="section-label">The Problem</div>
+  <h2 class="section-title">Why today's learning<br><span class="rust">isn't working.</span></h2>
+
+  <div class="problem-layout">
+    <div>
+      <p class="section-sub">
+        Students across the world face a broken learning loop — they absorb content passively but never truly internalize it. The system rewards memorization, not mastery. Three deep cracks run through it.
+      </p>
+      <div class="problem-cards" style="margin-top: 2rem;">
+        <div class="prob-card fade-in">
+          <div class="prob-icon-wrap pi1">📚</div>
+          <div>
+            <h3>Passive Learning Trap</h3>
+            <p>Conventional learning is constrained by marks. Students study to pass, not to understand — optimizing for tests, not for knowledge that actually sticks.</p>
+          </div>
+        </div>
+        <div class="prob-card fade-in delay-1">
+          <div class="prob-icon-wrap pi2">🐢</div>
+          <div>
+            <h3>Inefficient Group Study</h3>
+            <p>Group studies are slow and unstructured. Students are rarely taught <em>how</em> to learn — only what to learn. Most sessions generate the feeling of productivity without the substance.</p>
+          </div>
+        </div>
+        <div class="prob-card fade-in delay-2">
+          <div class="prob-icon-wrap pi3">📵</div>
+          <div>
+            <h3>Zero Accountability</h3>
+            <p>Learners are flooded with distractions in the online age — no genuine mechanism to keep accountability. Without a real external commitment, motivation collapses.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="problem-visual fade-in">
+      <p class="pv-label">The learning gap — where students fall short</p>
+      <div class="pv-stat">
+        <div class="pv-stat-row">
+          <span class="pv-bar-label">Surface memorization</span>
+          <div class="pv-bar-track">
+            <div class="pv-bar-fill" style="width:88%; background:#f4a58a;"></div>
+          </div>
+          <span class="pv-bar-pct">88%</span>
+        </div>
+        <div class="pv-stat-row">
+          <span class="pv-bar-label">Deep understanding</span>
+          <div class="pv-bar-track">
+            <div class="pv-bar-fill" style="width:32%; background:#52b788;"></div>
+          </div>
+          <span class="pv-bar-pct">32%</span>
+        </div>
+        <div class="pv-stat-row">
+          <span class="pv-bar-label">Consistent study habit</span>
+          <div class="pv-bar-track">
+            <div class="pv-bar-fill" style="width:41%; background:#f0c040;"></div>
+          </div>
+          <span class="pv-bar-pct">41%</span>
+        </div>
+        <div class="pv-stat-row">
+          <span class="pv-bar-label">Recall after 1 month</span>
+          <div class="pv-bar-track">
+            <div class="pv-bar-fill" style="width:22%; background:#82a4ff;"></div>
+          </div>
+          <span class="pv-bar-pct">22%</span>
+        </div>
+      </div>
+      <p class="pv-caption">Average learner outcomes in passive learning environments. FeynLearn was designed to flip these numbers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SCIENCE -->
+<section class="section how-bg" id="science">
+  <div class="how-inner">
+    <div class="how-header fade-in">
+      <div class="section-label">Why It Works</div>
+      <h2 class="section-title">Built on <em>real science,</em><br>not guesswork.</h2>
+      <p class="section-sub">FeynLearn connects the two learning phases in every student's life. Every feature is a direct expression of two of the most rigorously tested principles in learning science.</p>
+    </div>
+    <div class="science-grid">
+      <div class="sci-card sc1 fade-in">
+        <span class="sci-tag st-green">Learning Science</span>
+        <h3>The Feynman Technique</h3>
+        <p>Nobel Prize-winning physicist Richard Feynman discovered that you only truly understand something when you can explain it simply to someone else. If you can't, you have a gap — and teaching immediately surfaces exactly where that gap is. FeynLearn's entire session structure is built on this loop.</p>
+      </div>
+      <div class="sci-card sc2 fade-in delay-1">
+        <span class="sci-tag st-peach">Psychology</span>
+        <h3>Albert Bandura's Social Learning Theory</h3>
+        <p>Bandura proved that humans learn most powerfully through social interaction — not isolated study. When peers teach peers, both parties engage deeply. The teacher organizes their knowledge; the learner receives it from someone uniquely relatable. FeynLearn's peer model is grounded entirely in this research.</p>
+      </div>
+      <div class="science-quote fade-in delay-2">
+        <div class="sq-mark">"</div>
+        <div>
+          <p class="sq-text">Connecting the two learning phases in every student's life — absorbing and teaching — is what makes FeynLearn genuinely different.</p>
+          <span class="sq-attr">FeynLearn — Core Philosophy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION / HOW IT WORKS -->
+<section class="section" id="solution" style="background:#fff;">
+  <div class="section-label">How It Works</div>
+  <h2 class="section-title">Three systems.<br>One <em>learning loop.</em></h2>
+
+  <div class="solution-intro-grid">
+    <div class="sol-steps">
+      <div class="sol-step fade-in">
+        <span class="ss-num">01</span>
+        <div class="ss-icon-wrap si1">🤝</div>
+        <div class="ss-content">
+          <h3>Feynman Sessions</h3>
+          <p>Schedule a session to teach a topic you're currently learning — not after mastering it. We provide mentorship to guide tutors on time, structure, and delivery. The audience size can be set to any number the learner is comfortable with.</p>
+          <span class="ss-badge">Core Feature</span>
+        </div>
+      </div>
+      <div class="sol-step fade-in delay-1">
+        <span class="ss-num">02</span>
+        <div class="ss-icon-wrap si2">👩‍🏫</div>
+        <div class="ss-content">
+          <h3>"Teach to Teacher" Sessions</h3>
+          <p>A special variant where the learner teaches an <strong>expert</strong> — who then provides targeted feedback on exactly where understanding breaks down. The most rigorous and effective format on the platform.</p>
+          <span class="ss-badge">Special Format</span>
+        </div>
+      </div>
+      <div class="sol-step fade-in delay-2">
+        <span class="ss-num">03</span>
+        <div class="ss-icon-wrap si3">🧠</div>
+        <div class="ss-content">
+          <h3>Mastery Learning</h3>
+          <p>Topic-based daily quizzes and questions with detailed solutions — making learners genuinely exam-ready through repeated, focused practice after every session.</p>
+          <span class="ss-badge">Daily Practice</span>
+        </div>
+      </div>
+      <div class="sol-step fade-in delay-3">
+        <span class="ss-num">04</span>
+        <div class="ss-icon-wrap si4">📅</div>
+        <div class="ss-content">
+          <h3>Smart Study Plan</h3>
+          <p>Automatic, regular scheduling of topics in each learner's study track — ensuring continuous, uninterrupted progress. No gaps, no losing momentum.</p>
+          <span class="ss-badge">Continuous Learning</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sol-feature-box fade-in">
+      <div>
+        <p class="sfb-head">Platform Vision</p>
+        <h3 class="sfb-title">A community of learners who <em>grow together.</em></h3>
+      </div>
+      <div class="sfb-divider"></div>
+      <p class="sfb-body">
+        Beyond sessions and quizzes, FeynLearn nurtures a fun, smart community of learners from diverse grades and fields — brought together through community events, subject clubs, and cross-grade mentorship.<br><br>
+        Learners don't just improve academically. They build communication skills, confidence, and the ability to break down complex ideas — skills that serve them far beyond any exam.
+      </p>
+      <div class="sfb-divider"></div>
+      <div class="sfb-tags">
+        <span class="sfb-tag">📖 Any subject</span>
+        <span class="sfb-tag">🎓 Classes 6–12</span>
+        <span class="sfb-tag">🌐 Online sessions</span>
+        <span class="sfb-tag">🏆 Community events</span>
+        <span class="sfb-tag">🖊️ Whiteboard tools</span>
+        <span class="sfb-tag">🤝 Mentorship</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="section" id="roadmap">
+  <div class="section-label">Roadmap</div>
+  <h2 class="section-title">Four deliberate stages —<br>building <em>proof before scale.</em></h2>
+  <p class="section-sub" style="margin-bottom: 3rem;">From a focused pilot to a global learning community — one intentional step at a time.</p>
+  <div class="market-roadmap fade-in">
+    <div class="road-step">
+      <div class="road-dot active">NOW</div>
+      <div class="road-content">
+        <h4>Pilot Study</h4>
+        <p>6–10 students from Classes 9 &amp; 10. Scientific psychological studies to validate the core learning model and measure real outcomes.</p>
+        <span class="rm-tag">Active Phase</span>
+      </div>
+    </div>
+    <div class="road-step">
+      <div class="road-dot">2</div>
+      <div class="road-content">
+        <h4>Expand to Classes 6–12</h4>
+        <p>Accommodate all secondary students. Lobby schools, run sensitization events, and introduce a Teacher's version to track student progress inside classrooms.</p>
+      </div>
+    </div>
+    <div class="road-step">
+      <div class="road-dot">3</div>
+      <div class="road-content">
+        <h4>App for All</h4>
+        <p>AI agent-based learning engine. A free downloadable app that accommodates all types of learners across every subject and level.</p>
+      </div>
+    </div>
+    <div class="road-step">
+      <div class="road-dot">4</div>
+      <div class="road-content">
+        <h4>Collaborate</h4>
+        <p>Partner with related platforms to share customer bases for hackathons, competitions, and cross-platform learning events.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVENUE -->
+<!-- <section class="section revenue-bg" id="revenue">
+  <div class="section-label">Business Model</div>
+  <h2 class="section-title">Three revenue streams,<br>all <em>aligned with learning.</em></h2>
+  <p class="section-sub">Each stream directly serves the learning experience — not a distraction from it.</p>
+  <div class="rev-grid">
+    <div class="rev-card fade-in">
+      <div class="rev-card-top rct1">
+        <span class="rev-card-icon">🖊️</span>
+        <h3>Tablet Partnership</h3>
+      </div>
+      <div class="rev-card-body">
+        <p>Graphic tablets provided to learners so they can use a digital whiteboard while teaching in Feynman Sessions — on Android and laptop.</p>
+        <div class="rev-detail">Partnership with <span>xp-pen.co.in</span> — discounted devices for FeynLearn users.</div>
+      </div>
+    </div>
+    <div class="rev-card fade-in delay-1">
+      <div class="rev-card-top rct2">
+        <span class="rev-card-icon">🎓</span>
+        <h3>Mentorship Subscription</h3>
+      </div>
+      <div class="rev-card-body">
+        <p>Continued, personalized mentorship — guiding tutors on how to organize time, select topics, structure sessions, and grow their teaching confidence.</p>
+        <div class="rev-detail">Recurring fee from <span>active tutor-learners</span> on the platform.</div>
+      </div>
+    </div>
+    <div class="rev-card fade-in delay-2">
+      <div class="rev-card-top rct3">
+        <span class="rev-card-icon">🏫</span>
+        <h3>Institutional Partnerships</h3>
+      </div>
+      <div class="rev-card-body">
+        <p>Paid partnerships with educational institutions to build a campus-wide peer-to-peer learning community, with teacher-facing tools to track student progress.</p>
+        <div class="rev-detail">B2B revenue from <span>schools, colleges &amp; coaching institutes.</span></div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <div class="cta-blob cb1"></div>
+  <div class="cta-blob cb2"></div>
+  <div class="section-label">✦ Join the Movement</div>
+  <h2 class="cta-title">We make passionate learners,<br><em>Masters of their passion.</em></h2>
+  <p class="cta-sub">Whether you're a student ready to go beyond marks, a school that wants to build a learning culture, or simply someone who loves to learn deeply — FeynLearn is for you.</p>
+  <div class="cta-btns">
+    <a href="/cdn-cgi/l/email-protection#5d3b38243331383c2f331d3839292f283e38733e3230" class="btn-light">✉️ Get In Touch</a>
+    <a href="https://www.instagram.com/edtruce?igsh=MWY0aTh0bWk2ZDhnbw==" class="btn-light" target="_blank">📸 @edtruce on Instagram</a>
+    <a href="https://forms.gle/cpFig78icbWvvpJB6" class="btn-light" target="_blank">Discover Your Expectations</a>
+  </div>
+  <div class="cta-contacts">
+    <a href="/cdn-cgi/l/email-protection#5630332f383a3337243816333222242335337835393b" class="contact-chip"><span class="__cf_email__" data-cfemail="197f7c6077757c786b77597c7d6d6b6c7a7c377a7674">[email&#160;protected]</span></a>
+    <span class="contact-chip" style="cursor: default;">Pilot Phase — Classes 9 &amp; 10</span>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Feyn<span>Learn</span></div>
+  <p>© 2025 FeynLearn (Edtruce) — Learning by Teaching</p>
+  <p>Pilot Phase Active · India</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Active nav link highlight
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) cur = s.id;
+    });
+    links.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--light-green)' : '';
+    });
+  });
+</script>
+</body>
+</html>
