@@ -47,115 +47,12 @@
   .nav-cta { background: var(--navy); color: #fff; padding: 0.55rem 1.4rem; border-radius: 50px; font-size: 0.88rem; font-weight: 500; text-decoration: none; transition: background 0.2s; }
   .nav-cta:hover { background: var(--green); }
 
-  /* ── MOTIVATIONAL SPLASH ── */
-  .motivational-splash {
-    margin-top: 90px;
-    width: 100%;
-    background: var(--navy);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2.8rem 5%;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* subtle animated bg particles */
-  .splash-bg {
-    position: absolute; inset: 0; pointer-events: none;
-    overflow: hidden;
-  }
-  .splash-particle {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0;
-    animation: particleRise var(--dur) ease-in infinite;
-    animation-delay: var(--delay);
-  }
-  @keyframes particleRise {
-    0%   { opacity: 0; transform: translateY(0) scale(0.6); }
-    20%  { opacity: 0.3; }
-    100% { opacity: 0; transform: translateY(-120px) scale(1.2); }
-  }
-
-  .splash-eyebrow {
-    font-size: 0.7rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--peach);
-    margin-bottom: 1rem;
-    opacity: 0;
-    animation: fadeUp 0.7s ease 0.2s forwards;
-  }
-
-  .splash-headline {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 5vw, 3.6rem);
-    font-weight: 900;
-    color: #fff;
-    line-height: 1.15;
-    min-height: 1.3em;
-    margin-bottom: 1.2rem;
-    opacity: 0;
-    animation: fadeUp 0.7s ease 0.5s forwards;
-  }
-
-  /* typewriter cursor */
-  .cursor {
-    display: inline-block;
-    width: 3px;
-    background: var(--light-green);
-    margin-left: 4px;
-    vertical-align: baseline;
-    animation: cursorBlink 0.85s step-end infinite;
-    border-radius: 1px;
-  }
-  @keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-  .splash-sub {
-    font-size: 0.95rem;
-    color: rgba(255,255,255,0.5);
-    letter-spacing: 0.06em;
-    opacity: 0;
-    animation: fadeUp 0.7s ease 1s forwards;
-    max-width: 420px;
-    line-height: 1.6;
-  }
-
-  /* progress dots */
-  .splash-dots {
-    display: flex; gap: 6px; margin-top: 1.6rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease 1.2s forwards;
-  }
-  .splash-dot {
-    width: 5px; height: 5px; border-radius: 50%;
-    background: rgba(255,255,255,0.2);
-    transition: background 0.4s, transform 0.4s;
-  }
-  .splash-dot.active { background: var(--light-green); transform: scale(1.4); }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* decorative rule below splash */
-  .splash-rule {
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--light-green), var(--peach), transparent);
-    opacity: 0.35;
-  }
-
   /* ── HERO ── */
   .hero {
     min-height: 100vh;
     display: grid; grid-template-columns: 1fr 1fr;
     align-items: center;
-    padding: 5rem 5% 4rem;
+    padding: 9rem 5% 4rem;
     position: relative; overflow: hidden;
   }
   .hero-blob { position: absolute; border-radius: 50%; opacity: 0.18; pointer-events: none; }
@@ -194,6 +91,72 @@
   .hero-chip { position: absolute; background: #fff; border-radius: 50px; padding: 0.7rem 1.2rem; box-shadow: 0 8px 30px rgba(0,0,0,0.1); font-size: 0.82rem; font-weight: 500; white-space: nowrap; display: flex; align-items: center; gap: 0.4rem; z-index: 3; }
   .chip-1 { top: -18px; right: -24px; }
   .chip-2 { bottom: 20px; left: -28px; }
+
+  /* ── MOTIVATIONAL SPLASH ── */
+  .motivational-splash {
+    width: 100%;
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2.8rem 5%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .splash-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .splash-particle {
+    position: absolute; border-radius: 50%; opacity: 0;
+    animation: particleRise var(--dur) ease-in infinite;
+    animation-delay: var(--delay);
+  }
+  @keyframes particleRise {
+    0%   { opacity: 0; transform: translateY(0) scale(0.6); }
+    20%  { opacity: 0.3; }
+    100% { opacity: 0; transform: translateY(-120px) scale(1.2); }
+  }
+  .splash-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    min-height: 1.3em;
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.3s forwards;
+  }
+  .cursor {
+    display: inline-block;
+    width: 3px;
+    background: var(--light-green);
+    margin-left: 4px;
+    vertical-align: baseline;
+    animation: cursorBlink 0.85s step-end infinite;
+    border-radius: 1px;
+  }
+  @keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .splash-sub {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.06em;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.6s forwards;
+    max-width: 420px;
+    line-height: 1.6;
+    transition: opacity 0.4s, transform 0.4s;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .splash-rule {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--light-green), var(--peach), transparent);
+    opacity: 0.35;
+  }
 
   /* ── SECTION BASE ── */
   .section { padding: 6rem 5%; }
@@ -314,7 +277,7 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 960px) {
-    .hero { grid-template-columns: 1fr; gap: 3rem; padding-top: 4rem; }
+    .hero { grid-template-columns: 1fr; gap: 3rem; padding-top: 7rem; }
     .hero-visual { display: none; }
     .problem-layout, .solution-intro-grid { grid-template-columns: 1fr; }
     .science-grid { grid-template-columns: 1fr; }
@@ -352,26 +315,6 @@
   </ul>
   <a href="#cta" class="nav-cta">Join the Pilot</a>
 </nav>
-
-<!-- MOTIVATIONAL SPLASH -->
-<div class="motivational-splash">
-
-  <!-- floating particles -->
-  <div class="splash-bg" aria-hidden="true">
-    <div class="splash-particle" style="width:6px;height:6px;background:rgba(82,183,136,0.5);left:12%;top:70%;--dur:4s;--delay:0s;"></div>
-    <div class="splash-particle" style="width:4px;height:4px;background:rgba(244,165,138,0.5);left:25%;top:80%;--dur:5.5s;--delay:0.8s;"></div>
-    <div class="splash-particle" style="width:5px;height:5px;background:rgba(82,183,136,0.4);left:40%;top:75%;--dur:4.8s;--delay:1.4s;"></div>
-    <div class="splash-particle" style="width:6px;height:6px;background:rgba(244,165,138,0.45);left:60%;top:78%;--dur:5.2s;--delay:0.3s;"></div>
-    <div class="splash-particle" style="width:4px;height:4px;background:rgba(82,183,136,0.5);left:75%;top:72%;--dur:4.2s;--delay:1s;"></div>
-    <div class="splash-particle" style="width:5px;height:5px;background:rgba(255,255,255,0.2);left:88%;top:80%;--dur:6s;--delay:0.5s;"></div>
-  </div>
-
-  <p class="splash-eyebrow">A message for every learner</p>
-  <h2 class="splash-headline" id="splashText"><span class="cursor"></span></h2>
-  <p class="splash-sub" id="splashSub"></p>
-  <div class="splash-dots" id="splashDots"></div>
-</div>
-<div class="splash-rule"></div>
 
 <!-- HERO -->
 <section class="hero">
@@ -416,6 +359,21 @@
     </div>
   </div>
 </section>
+
+<!-- MOTIVATIONAL SPLASH -->
+<div class="motivational-splash">
+  <div class="splash-bg" aria-hidden="true">
+    <div class="splash-particle" style="width:6px;height:6px;background:rgba(82,183,136,0.5);left:12%;top:70%;--dur:4s;--delay:0s;"></div>
+    <div class="splash-particle" style="width:4px;height:4px;background:rgba(244,165,138,0.5);left:25%;top:80%;--dur:5.5s;--delay:0.8s;"></div>
+    <div class="splash-particle" style="width:5px;height:5px;background:rgba(82,183,136,0.4);left:40%;top:75%;--dur:4.8s;--delay:1.4s;"></div>
+    <div class="splash-particle" style="width:6px;height:6px;background:rgba(244,165,138,0.45);left:60%;top:78%;--dur:5.2s;--delay:0.3s;"></div>
+    <div class="splash-particle" style="width:4px;height:4px;background:rgba(82,183,136,0.5);left:75%;top:72%;--dur:4.2s;--delay:1s;"></div>
+    <div class="splash-particle" style="width:5px;height:5px;background:rgba(255,255,255,0.2);left:88%;top:80%;--dur:6s;--delay:0.5s;"></div>
+  </div>
+  <h2 class="splash-headline" id="splashText"><span class="cursor"></span></h2>
+  <p class="splash-sub" id="splashSub"></p>
+</div>
+<div class="splash-rule"></div>
 
 <!-- PROBLEM -->
 <section class="section" id="problem">
@@ -653,94 +611,51 @@
 <script>
   /* ── TYPEWRITER SPLASH ── */
   const phrases = [
-    {
-      text: "Conquer Yourself.",
-      sub: "The only battle that truly matters."
-    },
-    {
-      text: "Your excuses don't study for you.",
-      sub: "Show up. Every single day."
-    },
-    {
-      text: "Teach it. Own it. Forever.",
-      sub: "Understanding outlasts every shortcut."
-    },
-    {
-      text: "The student who teaches, masters.",
-      sub: "This is the Feynman promise."
-    }
+    { text: "Conquer Yourself.",            sub: "The only battle that truly matters." },
+    { text: "Your excuses don't study for you.", sub: "Show up. Every single day." },
+    { text: "Teach it. Own it. Forever.",   sub: "Understanding outlasts every shortcut." },
+    { text: "The student who teaches, masters.", sub: "This is the Feynman promise." }
   ];
 
-  const el       = document.getElementById('splashText');
-  const subEl    = document.getElementById('splashSub');
-  const dotsEl   = document.getElementById('splashDots');
-  const cursor   = el.querySelector('.cursor');
+  const headlineEl = document.getElementById('splashText');
+  const subEl      = document.getElementById('splashSub');
+  const cursor     = headlineEl.querySelector('.cursor');
 
-  let phraseIdx = 0;
-  let charIdx   = 0;
-  let deleting  = false;
-  let paused    = false;
-
-  // build dots
-  phrases.forEach((_, i) => {
-    const d = document.createElement('div');
-    d.className = 'splash-dot' + (i === 0 ? ' active' : '');
-    dotsEl.appendChild(d);
-  });
-
-  function updateDots(idx) {
-    document.querySelectorAll('.splash-dot').forEach((d, i) => {
-      d.classList.toggle('active', i === idx);
-    });
-  }
+  let phraseIdx = 0, charIdx = 0, deleting = false, paused = false, started = false;
 
   function updateSub(text) {
     subEl.style.opacity = '0';
     subEl.style.transform = 'translateY(8px)';
-    subEl.style.transition = 'opacity 0.4s, transform 0.4s';
     setTimeout(() => {
       subEl.textContent = text;
       subEl.style.opacity = '1';
       subEl.style.transform = 'translateY(0)';
-    }, 400);
+    }, 350);
   }
 
   function type() {
     if (paused) return;
-
     const phrase = phrases[phraseIdx].text;
 
-    if (!deleting && charIdx <= phrase.length) {
-      // place text + cursor
-      el.textContent = phrase.slice(0, charIdx);
-      el.appendChild(cursor);
+    if (!deleting) {
+      headlineEl.textContent = phrase.slice(0, charIdx);
+      headlineEl.appendChild(cursor);
       charIdx++;
-
-      if (charIdx === phrase.length + 1) {
-        // finished typing — show sub, pause before deleting
-        if (charIdx === phrase.length + 1) {
-          updateSub(phrases[phraseIdx].sub);
-        }
+      if (charIdx > phrase.length) {
+        updateSub(phrases[phraseIdx].sub);
         paused = true;
-        setTimeout(() => {
-          paused = false;
-          deleting = true;
-          type();
-        }, 2800);
+        setTimeout(() => { paused = false; deleting = true; type(); }, 2800);
         return;
       }
       setTimeout(type, 55);
-
-    } else if (deleting && charIdx >= 0) {
-      el.textContent = phrase.slice(0, charIdx);
-      el.appendChild(cursor);
+    } else {
+      headlineEl.textContent = phrase.slice(0, charIdx);
+      headlineEl.appendChild(cursor);
       charIdx--;
-
       if (charIdx < 0) {
         deleting = false;
         phraseIdx = (phraseIdx + 1) % phrases.length;
         charIdx = 0;
-        updateDots(phraseIdx);
         setTimeout(type, 400);
         return;
       }
@@ -748,8 +663,17 @@
     }
   }
 
-  // start after entrance animation finishes
-  setTimeout(type, 1000);
+  /* start only when splash scrolls into view */
+  const splashObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !started) {
+        started = true;
+        setTimeout(type, 400);
+        splashObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+  splashObserver.observe(document.querySelector('.motivational-splash'));
 
   /* ── SCROLL FADE-IN ── */
   const observer = new IntersectionObserver((entries) => {
