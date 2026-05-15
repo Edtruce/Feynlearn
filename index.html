@@ -19,7 +19,7 @@
     --text: #374151;
     --light-green: #52b788;
   }
- 
+
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
@@ -28,7 +28,7 @@
     color: var(--text);
     overflow-x: hidden;
   }
- 
+
   /* ── NAV ── */
   nav {
     position: fixed; top: 0; width: 100%; z-index: 100;
@@ -46,52 +46,100 @@
   .nav-links a:hover { color: var(--light-green); }
   .nav-cta { background: var(--navy); color: #fff; padding: 0.55rem 1.4rem; border-radius: 50px; font-size: 0.88rem; font-weight: 500; text-decoration: none; transition: background 0.2s; }
   .nav-cta:hover { background: var(--green); }
- 
-  /* ── ANNOUNCEMENT BAND ── */
-  .announcement-band {
-    width: 100%;
-    overflow: hidden;
-    background: var(--navy);
-    border-bottom: 1px solid rgba(82,183,136,0.22);
-    padding: 0.35rem 0;
+
+  /* ── MOTIVATIONAL SPLASH ── */
+  .motivational-splash {
     margin-top: 90px;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%);
-    mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%);
-  }
-  .band-track {
+    width: 100%;
+    background: var(--navy);
     display: flex;
-    width: max-content;
-    animation: marquee 22s linear infinite;
-  }
-  .band-item {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 0.76rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--light-green);
-    padding: 0 2rem;
-    white-space: nowrap;
-    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 0.55rem;
+    justify-content: center;
+    padding: 2.8rem 5%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
   }
-  .band-star {
-    color: var(--peach);
-    font-style: normal;
-    font-size: 0.7rem;
-    animation: starPulse 2.5s ease-in-out infinite;
+
+  /* subtle animated bg particles */
+  .splash-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    overflow: hidden;
   }
-  @keyframes starPulse {
-    0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
-    50%       { opacity: 0.4; transform: scale(0.75) rotate(180deg); }
+  .splash-particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    animation: particleRise var(--dur) ease-in infinite;
+    animation-delay: var(--delay);
   }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
+  @keyframes particleRise {
+    0%   { opacity: 0; transform: translateY(0) scale(0.6); }
+    20%  { opacity: 0.3; }
+    100% { opacity: 0; transform: translateY(-120px) scale(1.2); }
   }
- 
+
+  .splash-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    min-height: 1.3em;
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.5s forwards;
+  }
+
+  /* typewriter cursor */
+  .cursor {
+    display: inline-block;
+    width: 3px;
+    background: var(--light-green);
+    margin-left: 4px;
+    vertical-align: baseline;
+    animation: cursorBlink 0.85s step-end infinite;
+    border-radius: 1px;
+  }
+  @keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  .splash-sub {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.06em;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 1s forwards;
+    max-width: 420px;
+    line-height: 1.6;
+  }
+
+  /* progress dots */
+  .splash-dots {
+    display: flex; gap: 6px; margin-top: 1.6rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 1.2s forwards;
+  }
+  .splash-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transition: background 0.4s, transform 0.4s;
+  }
+  .splash-dot.active { background: var(--light-green); transform: scale(1.4); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* decorative rule below splash */
+  .splash-rule {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--light-green), var(--peach), transparent);
+    opacity: 0.35;
+  }
+
   /* ── HERO ── */
   .hero {
     min-height: 100vh;
@@ -136,7 +184,7 @@
   .hero-chip { position: absolute; background: #fff; border-radius: 50px; padding: 0.7rem 1.2rem; box-shadow: 0 8px 30px rgba(0,0,0,0.1); font-size: 0.82rem; font-weight: 500; white-space: nowrap; display: flex; align-items: center; gap: 0.4rem; z-index: 3; }
   .chip-1 { top: -18px; right: -24px; }
   .chip-2 { bottom: 20px; left: -28px; }
- 
+
   /* ── SECTION BASE ── */
   .section { padding: 6rem 5%; }
   .section-label { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--light-green); font-weight: 500; margin-bottom: 0.6rem; }
@@ -144,7 +192,7 @@
   .section-title em { font-style: italic; color: var(--light-green); }
   .section-title .rust { color: var(--peach); }
   .section-sub { font-size: 1rem; color: var(--text); max-width: 560px; line-height: 1.7; }
- 
+
   /* ── PROBLEM ── */
   .problem-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: center; margin-top: 3rem; }
   .problem-cards { display: flex; flex-direction: column; gap: 1.2rem; }
@@ -169,7 +217,7 @@
   .pv-bar-label { font-size: 0.8rem; color: rgba(255,255,255,0.7); min-width: 130px; font-weight: 500; }
   .pv-bar-pct { font-size: 0.75rem; color: rgba(255,255,255,0.45); min-width: 32px; text-align: right; }
   .pv-caption { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.82rem; color: rgba(255,255,255,0.45); line-height: 1.6; }
- 
+
   /* ── SCIENCE ── */
   .how-bg { background: var(--navy); }
   .how-inner { max-width: 1100px; margin: 0 auto; }
@@ -193,7 +241,7 @@
   .sq-mark { font-family: 'Playfair Display', serif; font-size: 5rem; line-height: 0.7; color: rgba(255,255,255,0.08); flex-shrink: 0; }
   .sq-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.3rem; font-weight: 400; color: #fff; line-height: 1.4; flex: 1; }
   .sq-attr { font-size: 0.72rem; color: var(--peach); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.6rem; display: block; }
- 
+
   /* ── SOLUTION ── */
   .solution-intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-top: 3rem; }
   .sol-steps { display: flex; flex-direction: column; gap: 0; }
@@ -218,7 +266,7 @@
   .sfb-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
   .sfb-tag { padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.75rem; font-weight: 500; border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.55); transition: all 0.2s; text-decoration: none; }
   .sfb-tag:hover { border-color: var(--light-green); color: var(--light-green); background: rgba(82,183,136,0.08); }
- 
+
   /* ── ROADMAP ── */
   .market-roadmap { position: relative; max-width: 600px; }
   .market-roadmap::before { content: ''; position: absolute; left: 19px; top: 10px; bottom: 10px; width: 1px; background: rgba(26,42,82,0.1); }
@@ -232,7 +280,7 @@
   .road-content h4 { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 0.25rem; padding-top: 0.4rem; }
   .road-content p { font-size: 0.83rem; color: #9ca3af; line-height: 1.55; }
   .rm-tag { display: inline-block; margin-top: 0.4rem; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.18rem 0.55rem; border-radius: 20px; background: rgba(82,183,136,0.12); color: var(--light-green); }
- 
+
   /* ── CTA ── */
   .cta-section { padding: 6rem 5%; text-align: center; background: var(--navy); position: relative; overflow: hidden; }
   .cta-blob { position: absolute; border-radius: 50%; pointer-events: none; }
@@ -248,12 +296,12 @@
   .cta-contacts { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
   .contact-chip { font-size: 0.85rem; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
   .contact-chip:hover { color: var(--peach); }
- 
+
   /* ── FOOTER ── */
   footer { background: #0e1929; color: rgba(255,255,255,0.35); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; padding: 1.8rem 5%; font-size: 0.82rem; }
   .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 900; color: rgba(255,255,255,0.5); }
   .footer-logo span { color: var(--light-green); }
- 
+
   /* ── RESPONSIVE ── */
   @media (max-width: 960px) {
     .hero { grid-template-columns: 1fr; gap: 3rem; padding-top: 4rem; }
@@ -262,13 +310,15 @@
     .science-grid { grid-template-columns: 1fr; }
     .science-quote { grid-column: auto; }
     .sol-feature-box { position: static; }
+    .splash-headline { font-size: 2rem; }
   }
   @media (max-width: 600px) {
     .nav-links { display: none; }
     .section { padding: 5rem 4%; }
-    .announcement-band { margin-top: 72px; }
+    .motivational-splash { padding: 2rem 5%; }
+    .splash-headline { font-size: 1.7rem; }
   }
- 
+
   /* ── ANIMATIONS ── */
   .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .fade-in.visible { opacity: 1; transform: none; }
@@ -278,7 +328,7 @@
 </style>
 </head>
 <body>
- 
+
 <!-- NAV -->
 <nav>
   <div class="nav-logo">
@@ -292,25 +342,7 @@
   </ul>
   <a href="#cta" class="nav-cta">Join the Pilot</a>
 </nav>
- 
-<!-- ANNOUNCEMENT BAND -->
-<div class="announcement-band">
-  <div class="band-track">
-    <span class="band-item"><span class="band-star">✦</span> Conquer Yourself!</span>
-    <span class="band-item"><span class="band-star">✦</span> Conquer Yourself!</span>
-    <span class="band-item"><span class="band-star">✦</span> Conquer Yourself!</span>
-    <span class="band-item"><span class="band-star">✦</span> Conquer Yourself!</span>
-    <span class="band-item"><span class="band-star">✦</span> Conquer Yourself!</span>
-    <span class="band-item"><span class="band-star">✦</span> Conquer Yourself!</span>
-    <span class="band-item"><span class="band-star">✦</span> Conquer Yourself!</span>
-    <span class="band-item"><span class="band-star">✦</span> Conquer Yourself!</span>
-    <span class="band-item"><span class="band-star">✦</span> Conquer Yourself!</span>
-    <span class="band-item"><span class="band-star">✦</span> Conquer Yourself!</span>
-    <span class="band-item"><span class="band-star">✦</span> Conquer Yourself!</span>
-    <span class="band-item"><span class="band-star">✦</span> Conquer Yourself!</span>
-  </div>
-</div>
- 
+
 <!-- HERO -->
 <section class="hero">
   <div class="hero-blob blob-1"></div>
@@ -354,7 +386,27 @@
     </div>
   </div>
 </section>
- 
+
+<!-- MOTIVATIONAL SPLASH -->
+<div class="motivational-splash">
+
+  <!-- floating particles -->
+  <div class="splash-bg" aria-hidden="true">
+    <div class="splash-particle" style="width:6px;height:6px;background:rgba(82,183,136,0.5);left:12%;top:70%;--dur:4s;--delay:0s;"></div>
+    <div class="splash-particle" style="width:4px;height:4px;background:rgba(244,165,138,0.5);left:25%;top:80%;--dur:5.5s;--delay:0.8s;"></div>
+    <div class="splash-particle" style="width:5px;height:5px;background:rgba(82,183,136,0.4);left:40%;top:75%;--dur:4.8s;--delay:1.4s;"></div>
+    <div class="splash-particle" style="width:6px;height:6px;background:rgba(244,165,138,0.45);left:60%;top:78%;--dur:5.2s;--delay:0.3s;"></div>
+    <div class="splash-particle" style="width:4px;height:4px;background:rgba(82,183,136,0.5);left:75%;top:72%;--dur:4.2s;--delay:1s;"></div>
+    <div class="splash-particle" style="width:5px;height:5px;background:rgba(255,255,255,0.2);left:88%;top:80%;--dur:6s;--delay:0.5s;"></div>
+  </div>
+
+  <p class="splash-eyebrow">A message for every learner</p>
+  <h2 class="splash-headline" id="splashText"><span class="cursor"></span></h2>
+  <p class="splash-sub" id="splashSub"></p>
+  <div class="splash-dots" id="splashDots"></div>
+</div>
+<div class="splash-rule"></div>
+  
 <!-- PROBLEM -->
 <section class="section" id="problem">
   <div class="section-label">The Problem</div>
@@ -414,7 +466,7 @@
     </div>
   </div>
 </section>
- 
+
 <!-- SCIENCE -->
 <section class="section how-bg" id="science">
   <div class="how-inner">
@@ -444,7 +496,7 @@
     </div>
   </div>
 </section>
- 
+
 <!-- SOLUTION -->
 <section class="section" id="solution" style="background:#fff;">
   <div class="section-label">How It Works</div>
@@ -525,7 +577,7 @@
     </div>
   </div>
 </section>
- 
+
 <!-- ROADMAP -->
 <section class="section" id="roadmap">
   <div class="section-label">Roadmap</div>
@@ -563,7 +615,7 @@
     </div>
   </div>
 </section>
- 
+
 <!-- CTA -->
 <section class="cta-section" id="cta">
   <div class="cta-blob cb1"></div>
@@ -581,21 +633,123 @@
     <span class="contact-chip" style="cursor:default;">Pilot Phase — Classes 9 &amp; 10</span>
   </div>
 </section>
- 
+
 <footer>
   <div class="footer-logo">Feyn<span>learn</span></div>
   <p>© 2026 Feynlearn (Edtruce) — Learning by Teaching</p>
   <p>Pilot Phase Active · Pune, India</p>
 </footer>
- 
+
 <script>
+  /* ── TYPEWRITER SPLASH ── */
+  const phrases = [
+    {
+      text: "Conquer Yourself.",
+      sub: "The only battle that truly matters."
+    },
+    {
+      text: "Your excuses don't study for you.",
+      sub: "Show up. Every single day."
+    },
+    {
+      text: "Teach it. Own it. Forever.",
+      sub: "Understanding outlasts every shortcut."
+    },
+    {
+      text: "The student who teaches, masters.",
+      sub: "This is the Feynman promise."
+    }
+  ];
+
+  const el       = document.getElementById('splashText');
+  const subEl    = document.getElementById('splashSub');
+  const dotsEl   = document.getElementById('splashDots');
+  const cursor   = el.querySelector('.cursor');
+
+  let phraseIdx = 0;
+  let charIdx   = 0;
+  let deleting  = false;
+  let paused    = false;
+
+  // build dots
+  phrases.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'splash-dot' + (i === 0 ? ' active' : '');
+    dotsEl.appendChild(d);
+  });
+
+  function updateDots(idx) {
+    document.querySelectorAll('.splash-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === idx);
+    });
+  }
+
+  function updateSub(text) {
+    subEl.style.opacity = '0';
+    subEl.style.transform = 'translateY(8px)';
+    subEl.style.transition = 'opacity 0.4s, transform 0.4s';
+    setTimeout(() => {
+      subEl.textContent = text;
+      subEl.style.opacity = '1';
+      subEl.style.transform = 'translateY(0)';
+    }, 400);
+  }
+
+  function type() {
+    if (paused) return;
+
+    const phrase = phrases[phraseIdx].text;
+
+    if (!deleting && charIdx <= phrase.length) {
+      // place text + cursor
+      el.textContent = phrase.slice(0, charIdx);
+      el.appendChild(cursor);
+      charIdx++;
+
+      if (charIdx === phrase.length + 1) {
+        // finished typing — show sub, pause before deleting
+        if (charIdx === phrase.length + 1) {
+          updateSub(phrases[phraseIdx].sub);
+        }
+        paused = true;
+        setTimeout(() => {
+          paused = false;
+          deleting = true;
+          type();
+        }, 2800);
+        return;
+      }
+      setTimeout(type, 55);
+
+    } else if (deleting && charIdx >= 0) {
+      el.textContent = phrase.slice(0, charIdx);
+      el.appendChild(cursor);
+      charIdx--;
+
+      if (charIdx < 0) {
+        deleting = false;
+        phraseIdx = (phraseIdx + 1) % phrases.length;
+        charIdx = 0;
+        updateDots(phraseIdx);
+        setTimeout(type, 400);
+        return;
+      }
+      setTimeout(type, 28);
+    }
+  }
+
+  // start after entrance animation finishes
+  setTimeout(type, 1000);
+
+  /* ── SCROLL FADE-IN ── */
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.12 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
- 
+
+  /* ── ACTIVE NAV ── */
   const sections = document.querySelectorAll('section[id]');
-  const links = document.querySelectorAll('.nav-links a');
+  const links    = document.querySelectorAll('.nav-links a');
   window.addEventListener('scroll', () => {
     let cur = '';
     sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
