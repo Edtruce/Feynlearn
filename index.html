@@ -80,6 +80,16 @@
     100% { opacity: 0; transform: translateY(-120px) scale(1.2); }
   }
 
+  .splash-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--peach);
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.2s forwards;
+  }
+
   .splash-headline {
     font-family: 'Playfair Display', serif;
     font-size: clamp(2rem, 5vw, 3.6rem);
@@ -343,6 +353,26 @@
   <a href="#cta" class="nav-cta">Join the Pilot</a>
 </nav>
 
+<!-- MOTIVATIONAL SPLASH -->
+<div class="motivational-splash">
+
+  <!-- floating particles -->
+  <div class="splash-bg" aria-hidden="true">
+    <div class="splash-particle" style="width:6px;height:6px;background:rgba(82,183,136,0.5);left:12%;top:70%;--dur:4s;--delay:0s;"></div>
+    <div class="splash-particle" style="width:4px;height:4px;background:rgba(244,165,138,0.5);left:25%;top:80%;--dur:5.5s;--delay:0.8s;"></div>
+    <div class="splash-particle" style="width:5px;height:5px;background:rgba(82,183,136,0.4);left:40%;top:75%;--dur:4.8s;--delay:1.4s;"></div>
+    <div class="splash-particle" style="width:6px;height:6px;background:rgba(244,165,138,0.45);left:60%;top:78%;--dur:5.2s;--delay:0.3s;"></div>
+    <div class="splash-particle" style="width:4px;height:4px;background:rgba(82,183,136,0.5);left:75%;top:72%;--dur:4.2s;--delay:1s;"></div>
+    <div class="splash-particle" style="width:5px;height:5px;background:rgba(255,255,255,0.2);left:88%;top:80%;--dur:6s;--delay:0.5s;"></div>
+  </div>
+
+  <p class="splash-eyebrow">A message for every learner</p>
+  <h2 class="splash-headline" id="splashText"><span class="cursor"></span></h2>
+  <p class="splash-sub" id="splashSub"></p>
+  <div class="splash-dots" id="splashDots"></div>
+</div>
+<div class="splash-rule"></div>
+
 <!-- HERO -->
 <section class="hero">
   <div class="hero-blob blob-1"></div>
@@ -387,26 +417,6 @@
   </div>
 </section>
 
-<!-- MOTIVATIONAL SPLASH -->
-<div class="motivational-splash">
-
-  <!-- floating particles -->
-  <div class="splash-bg" aria-hidden="true">
-    <div class="splash-particle" style="width:6px;height:6px;background:rgba(82,183,136,0.5);left:12%;top:70%;--dur:4s;--delay:0s;"></div>
-    <div class="splash-particle" style="width:4px;height:4px;background:rgba(244,165,138,0.5);left:25%;top:80%;--dur:5.5s;--delay:0.8s;"></div>
-    <div class="splash-particle" style="width:5px;height:5px;background:rgba(82,183,136,0.4);left:40%;top:75%;--dur:4.8s;--delay:1.4s;"></div>
-    <div class="splash-particle" style="width:6px;height:6px;background:rgba(244,165,138,0.45);left:60%;top:78%;--dur:5.2s;--delay:0.3s;"></div>
-    <div class="splash-particle" style="width:4px;height:4px;background:rgba(82,183,136,0.5);left:75%;top:72%;--dur:4.2s;--delay:1s;"></div>
-    <div class="splash-particle" style="width:5px;height:5px;background:rgba(255,255,255,0.2);left:88%;top:80%;--dur:6s;--delay:0.5s;"></div>
-  </div>
-
-  <p class="splash-eyebrow">A message for every learner</p>
-  <h2 class="splash-headline" id="splashText"><span class="cursor"></span></h2>
-  <p class="splash-sub" id="splashSub"></p>
-  <div class="splash-dots" id="splashDots"></div>
-</div>
-<div class="splash-rule"></div>
-  
 <!-- PROBLEM -->
 <section class="section" id="problem">
   <div class="section-label">The Problem</div>
