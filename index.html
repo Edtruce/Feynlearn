@@ -1,696 +1,662 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feynlearn — Learning by Teaching</title>
-<link rel="icon" href="logoo2.png" type="image/png" />
-<link rel="apple-touch-icon" href="logoo2.png" />
-<meta name="theme-color" content="#ffffff">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<script defer src="/_vercel/insights/script.js"></script>
-<style>
-  :root {
-    --navy: #1a2a52;
-    --green: #2d6a4f;
-    --peach: #f4a58a;
-    --cream: #fdf6ee;
-    --dark: #111827;
-    --text: #374151;
-    --light-green: #52b788;
-  }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Feynlearn — Learn by Teaching | Class 9 &amp; 10 Peer Learning</title>
+  <meta name="description" content="Class 9 &amp; 10 students master concepts by teaching peers in 20-minute Feynman sessions, with smart study plans and daily quizzes. Join the Pune pilot.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://feynlearn.in/">
+  <meta name="author" content="Feynlearn (Edtruce)">
+  <meta name="theme-color" content="#FDF6EE">
+  <meta name="geo.region" content="IN-MH">
+  <meta name="geo.placename" content="Pune">
 
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--text);
-    overflow-x: hidden;
-  }
+  <!-- Google Search Console: if you verified with the "HTML tag" method, paste your tag here:
+       <meta name="google-site-verification" content="YOUR_TOKEN"> (not needed for DNS / HTML-file verification) -->
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; width: 100%; z-index: 100;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1.2rem 5%;
-    background: rgba(253,246,238,0.92);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(26,42,82,0.08);
-  }
-  .nav-logo img { height: 90px; width: 120px; }
-  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--navy); letter-spacing: 0.04em; }
-  .nav-logo span { color: var(--light-green); }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a { text-decoration: none; color: var(--navy); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--light-green); }
-  .nav-cta { background: var(--navy); color: #fff; padding: 0.55rem 1.4rem; border-radius: 50px; font-size: 0.88rem; font-weight: 500; text-decoration: none; transition: background 0.2s; }
-  .nav-cta:hover { background: var(--green); }
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Feynlearn">
+  <meta property="og:locale" content="en_IN">
+  <meta property="og:url" content="https://feynlearn.in/">
+  <meta property="og:title" content="Feynlearn — Don't just study it. Teach it.">
+  <meta property="og:description" content="20-minute teach-to-peer sessions, smart study plans and daily quizzes for Class 9 &amp; 10 students.">
+  <meta property="og:image" content="https://feynlearn.in/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Feynlearn — Don't just study it. Teach it. Peer learning for Class 9 and 10 students.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Feynlearn — Don't just study it. Teach it.">
+  <meta name="twitter:description" content="20-minute teach-to-peer sessions, smart study plans and daily quizzes for Class 9 &amp; 10 students.">
+  <meta name="twitter:image" content="https://feynlearn.in/assets/og-image.png">
 
-  /* ── HERO ── */
-  .hero {
-    min-height: 110vh;
-    display: grid; grid-template-columns: 1fr 1fr;
-    align-items: center;
-    padding: 9rem 5% 4rem;
-    position: relative; overflow: hidden;
-  }
-  .hero-blob { position: absolute; border-radius: 50%; opacity: 0.18; pointer-events: none; }
-  .blob-1 { width: 480px; height: 480px; background: var(--green); top: -80px; right: -100px; }
-  .blob-2 { width: 320px; height: 320px; background: var(--peach); bottom: -60px; left: 10%; }
-  .blob-3 { width: 200px; height: 200px; background: var(--navy); top: 40%; left: -60px; }
-  .hero-text { position: relative; z-index: 2; }
-  .hero-eyebrow {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    background: rgba(82,183,136,0.15); color: var(--green);
-    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em;
-    text-transform: uppercase; padding: 0.35rem 0.9rem;
-    border-radius: 50px; margin-bottom: 1.4rem;
-  }
-  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--light-green); animation: blink 2s ease infinite; }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
-  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 900; line-height: 1.1; color: var(--navy); margin-bottom: 1.4rem; }
-  .hero-title em { font-style: italic; color: var(--light-green); }
-  .hero-subtitle { font-size: 1.1rem; line-height: 1.7; color: var(--text); max-width: 480px; margin-bottom: 2.4rem; }
-  .hero-cta-group { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
-  .btn-primary { background: var(--navy); color: #fff; padding: 0.85rem 2rem; border-radius: 50px; font-size: 0.95rem; font-weight: 500; text-decoration: none; transition: transform 0.2s, background 0.2s; }
-  .btn-primary:hover { transform: translateY(-2px); background: var(--green); }
-  .btn-ghost { color: var(--navy); font-size: 0.95rem; font-weight: 500; text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: gap 0.2s; }
-  .btn-ghost:hover { gap: 0.7rem; }
-  .btn-ghost::after { content: '→'; font-size: 1.1rem; }
-  .hero-visual { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; }
-  .quote-card { background: var(--navy); border-radius: 2rem; padding: 2.5rem 2.2rem; max-width: 380px; width: 100%; box-shadow: 0 30px 80px rgba(26,42,82,0.22); animation: float 5s ease-in-out infinite; }
-  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
-  .quote-icon { font-size: 4rem; color: rgba(255,255,255,0.15); line-height: 1; margin-bottom: 0.8rem; }
-  .quote-text { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-style: italic; font-weight: 400; color: #fff; line-height: 1.5; margin-bottom: 0.8rem; }
-  .quote-attr { font-size: 0.82rem; color: var(--peach); letter-spacing: 0.08em; text-transform: uppercase; }
-  .card-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 1.2rem 0; }
-  .card-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .card-stat-num { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; display: block; line-height: 1; }
-  .card-stat-lbl { font-size: 0.7rem; color: rgba(255,255,255,0.45); margin-top: 0.2rem; line-height: 1.3; }
-  .hero-chip { position: absolute; background: #fff; border-radius: 50px; padding: 0.7rem 1.2rem; box-shadow: 0 8px 30px rgba(0,0,0,0.1); font-size: 0.82rem; font-weight: 500; white-space: nowrap; display: flex; align-items: center; gap: 0.4rem; z-index: 3; }
-  .chip-1 { top: -18px; right: -24px; }
-  .chip-2 { bottom: 20px; left: -28px; }
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
 
-  /* ── MOTIVATIONAL SPLASH ── */
-  .motivational-splash {
-    width: 100%;
-    background: var(--navy);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2.8rem 5%;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .splash-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-  .splash-particle {
-    position: absolute; border-radius: 50%; opacity: 0;
-    animation: particleRise var(--dur) ease-in infinite;
-    animation-delay: var(--delay);
-  }
-  @keyframes particleRise {
-    0%   { opacity: 0; transform: translateY(0) scale(0.6); }
-    20%  { opacity: 0.3; }
-    100% { opacity: 0; transform: translateY(-120px) scale(1.2); }
-  }
-  .splash-headline {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 5vw, 3.6rem);
-    font-weight: 900;
-    color: #fff;
-    line-height: 1.15;
-    min-height: 1.3em;
-    margin-bottom: 1.2rem;
-    opacity: 0;
-    animation: fadeUp 0.7s ease 0.3s forwards;
-  }
-  .cursor {
-    display: inline-block;
-    width: 3px;
-    background: var(--light-green);
-    margin-left: 4px;
-    vertical-align: baseline;
-    animation: cursorBlink 0.85s step-end infinite;
-    border-radius: 1px;
-  }
-  @keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }
-  .splash-sub {
-    font-size: 0.95rem;
-    color: rgba(255,255,255,0.5);
-    letter-spacing: 0.06em;
-    opacity: 0;
-    animation: fadeUp 0.7s ease 0.6s forwards;
-    max-width: 420px;
-    line-height: 1.6;
-    transition: opacity 0.4s, transform 0.4s;
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .splash-rule {
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--light-green), var(--peach), transparent);
-    opacity: 0.35;
-  }
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "EducationalOrganization",
+      "@id": "https://feynlearn.in/#org",
+      "name": "Feynlearn",
+      "alternateName": "Edtruce",
+      "url": "https://feynlearn.in/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://feynlearn.in/assets/icon-512.png",
+        "width": 512,
+        "height": 512
+      },
+      "image": "https://feynlearn.in/assets/og-image.png",
+      "description": "Feynlearn is a learning-by-teaching platform where Class 9 and 10 students teach what they learn to peers in 20-minute sessions.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Pune",
+        "addressCountry": "IN"
+      },
+      "sameAs": [
+        "https://www.instagram.com/feynlearn.in/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "email": "hellobluntbeak@gmail.com",
+        "availableLanguage": [
+          "English"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://feynlearn.in/#website",
+      "url": "https://feynlearn.in/",
+      "name": "Feynlearn",
+      "description": "Learning by teaching for Class 9 and 10 students",
+      "inLanguage": "en-IN",
+      "publisher": {
+        "@id": "https://feynlearn.in/#org"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://feynlearn.in/#webpage",
+      "url": "https://feynlearn.in/",
+      "name": "Feynlearn — Learn by Teaching | Peer Learning for Class 9 & 10",
+      "isPartOf": {
+        "@id": "https://feynlearn.in/#website"
+      },
+      "about": {
+        "@id": "https://feynlearn.in/#org"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://feynlearn.in/assets/og-image.png"
+      },
+      "inLanguage": "en-IN"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://feynlearn.in/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Feynlearn?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Feynlearn is a learning-by-teaching platform for Class 9 and 10 students. You explain what you are learning to a peer in regular 20-minute sessions, using the Feynman Technique, so concepts actually stick."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who is Feynlearn for?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Right now the pilot is for students in Classes 9 and 10. We plan to expand to Classes 6 to 12 and, later, to a free app for all kinds of learners."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the Feynman Technique?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is a learning method named after Nobel Prize-winning physicist Richard Feynman: you only truly understand something when you can explain it simply to someone else. Where you get stuck explaining is exactly what you still need to learn."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long is a Feynlearn session?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Each teach-to-peer session is 20 minutes. Feynlearn splits every chapter into small sub-topics and schedules a 20-minute session for each one automatically."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens in a teach-to-peer session?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You teach the topic to a student moderator who asks the right doubts and questions to pinpoint exactly where your understanding breaks down. A short daily quiz with detailed solutions follows to build exam readiness."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Feynlearn free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Community sessions, where you attend sessions from anyone on the platform, are always free, and every learner receives a graphic tablet for free at onboarding. You can pre-register for pilot discounts using the form on this page."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I join the Feynlearn pilot?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pre-register using the form on this page. The pilot is limited to 6 to 10 students from Classes 9 and 10 and is based in Pune, India. Parents can also email the founder with questions."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 
-  /* ── SECTION BASE ── */
-  .section { padding: 6rem 5%; }
-  .section-label { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--light-green); font-weight: 500; margin-bottom: 0.6rem; }
-  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 900; color: var(--navy); line-height: 1.2; margin-bottom: 1rem; }
-  .section-title em { font-style: italic; color: var(--light-green); }
-  .section-title .rust { color: var(--peach); }
-  .section-sub { font-size: 1rem; color: var(--text); max-width: 560px; line-height: 1.7; }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/logo.png">
+  <link rel="stylesheet" href="assets/css/style.css">
 
-  /* ── PROBLEM ── */
-  .problem-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: center; margin-top: 3rem; }
-  .problem-cards { display: flex; flex-direction: column; gap: 1.2rem; }
-  .prob-card { display: flex; gap: 1.2rem; align-items: flex-start; background: #fff; border: 1px solid rgba(26,42,82,0.07); border-radius: 1.2rem; padding: 1.5rem; transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
-  .prob-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--light-green); border-radius: 0 2px 2px 0; transform: scaleY(0); transition: transform 0.25s; }
-  .prob-card:hover { transform: translateX(6px); box-shadow: 0 8px 28px rgba(26,42,82,0.08); }
-  .prob-card:hover::before { transform: scaleY(1); }
-  .prob-icon-wrap { width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
-  .pi1 { background: rgba(244,165,138,0.2); }
-  .pi2 { background: rgba(82,183,136,0.12); }
-  .pi3 { background: rgba(26,42,82,0.07); }
-  .prob-card h3 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--navy); margin-bottom: 0.35rem; }
-  .prob-card p { font-size: 0.87rem; line-height: 1.65; color: #6b7280; }
-  .problem-visual { background: var(--navy); border-radius: 1.5rem; padding: 2.5rem 2.2rem; position: relative; overflow: hidden; }
-  .problem-visual::after { content: ''; position: absolute; bottom: -40px; right: -40px; width: 180px; height: 180px; border-radius: 50%; background: rgba(82,183,136,0.1); }
-  .pv-label { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 1.5rem; }
-  .pv-stat { display: flex; flex-direction: column; gap: 1.2rem; }
-  .pv-stat-row { display: flex; align-items: center; gap: 1rem; }
-  .pv-bar-track { flex: 1; height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; }
-  .pv-bar-fill { height: 100%; border-radius: 4px; animation: barGrow 1.2s ease both; }
-  @keyframes barGrow { from { width: 0 !important; } }
-  .pv-bar-label { font-size: 0.8rem; color: rgba(255,255,255,0.7); min-width: 130px; font-weight: 500; }
-  .pv-bar-pct { font-size: 0.75rem; color: rgba(255,255,255,0.45); min-width: 32px; text-align: right; }
-  .pv-caption { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.82rem; color: rgba(255,255,255,0.45); line-height: 1.6; }
-
-  /* ── SCIENCE ── */
-  .how-bg { background: var(--navy); }
-  .how-inner { max-width: 1100px; margin: 0 auto; }
-  .how-header { text-align: center; margin-bottom: 4rem; }
-  .how-header .section-label { color: var(--peach); }
-  .how-header .section-title { color: #fff; }
-  .how-header .section-sub { color: rgba(255,255,255,0.65); margin: 0 auto; }
-  .science-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-  .sci-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 1.5rem; padding: 2.2rem; position: relative; overflow: hidden; transition: background 0.2s, transform 0.2s; }
-  .sci-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-  .sc1::before { background: linear-gradient(90deg, var(--light-green), transparent); }
-  .sc2::before { background: linear-gradient(90deg, var(--peach), transparent); }
-  .sci-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); }
-  .sci-tag { display: inline-block; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.25rem 0.7rem; border-radius: 30px; margin-bottom: 1rem; }
-  .st-green { background: rgba(82,183,136,0.15); color: var(--light-green); }
-  .st-peach { background: rgba(244,165,138,0.2); color: var(--peach); }
-  .sci-card h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: #fff; margin-bottom: 0.8rem; }
-  .sci-card p { font-size: 0.88rem; line-height: 1.75; color: rgba(255,255,255,0.6); }
-  .science-quote { grid-column: 1 / -1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 1.5rem; padding: 2rem 2.5rem; display: flex; align-items: center; gap: 2rem; transition: background 0.2s; }
-  .science-quote:hover { background: rgba(255,255,255,0.08); }
-  .sq-mark { font-family: 'Playfair Display', serif; font-size: 5rem; line-height: 0.7; color: rgba(255,255,255,0.08); flex-shrink: 0; }
-  .sq-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.3rem; font-weight: 400; color: #fff; line-height: 1.4; flex: 1; }
-  .sq-attr { font-size: 0.72rem; color: var(--peach); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.6rem; display: block; }
-
-  /* ── SOLUTION ── */
-  .solution-intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-top: 3rem; }
-  .sol-steps { display: flex; flex-direction: column; gap: 0; }
-  .sol-step { display: flex; gap: 1.2rem; padding: 1.8rem 0; border-bottom: 1px solid rgba(26,42,82,0.08); transition: background 0.2s; }
-  .sol-step:last-child { border-bottom: none; }
-  .sol-step:hover .ss-icon-wrap { transform: scale(1.1); }
-  .ss-num { font-size: 0.72rem; letter-spacing: 0.1em; color: #9ca3af; margin-top: 0.2rem; min-width: 24px; }
-  .ss-icon-wrap { width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; transition: transform 0.2s; }
-  .si1 { background: rgba(82,183,136,0.12); }
-  .si2 { background: rgba(244,165,138,0.2); }
-  .si3 { background: rgba(26,42,82,0.07); }
-  .si4 { background: rgba(255,200,70,0.15); }
-  .ss-content h3 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--navy); margin-bottom: 0.35rem; }
-  .ss-content p { font-size: 0.87rem; line-height: 1.65; color: #6b7280; }
-  .ss-badge { display: inline-block; background: rgba(82,183,136,0.15); color: var(--light-green); font-size: 0.72rem; font-weight: 500; padding: 0.2rem 0.65rem; border-radius: 50px; margin-top: 0.6rem; }
-  .sol-feature-box { background: var(--navy); border-radius: 1.5rem; padding: 2.5rem; display: flex; flex-direction: column; gap: 1.5rem; position: sticky; top: 110px; }
-  .sfb-head { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--peach); margin-bottom: 0.4rem; }
-  .sfb-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: #fff; line-height: 1.3; }
-  .sfb-title em { font-style: italic; color: var(--light-green); }
-  .sfb-body { font-size: 0.9rem; line-height: 1.75; color: rgba(255,255,255,0.55); }
-  .sfb-divider { height: 1px; background: rgba(255,255,255,0.08); }
-  .sfb-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .sfb-tag { padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.75rem; font-weight: 500; border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.55); transition: all 0.2s; text-decoration: none; }
-  .sfb-tag:hover { border-color: var(--light-green); color: var(--light-green); background: rgba(82,183,136,0.08); }
-
-  /* ── ROADMAP ── */
-  .market-roadmap { position: relative; max-width: 600px; }
-  .market-roadmap::before { content: ''; position: absolute; left: 19px; top: 10px; bottom: 10px; width: 1px; background: rgba(26,42,82,0.1); }
-  .road-step { display: flex; gap: 1rem; align-items: flex-start; padding-bottom: 1.5rem; position: relative; }
-  .road-step:last-child { padding-bottom: 0; }
-  .road-dot { width: 38px; height: 38px; border-radius: 50%; background: var(--navy); color: #fff; font-size: 0.72rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; z-index: 1; transition: all 0.2s; }
-  .road-dot.active { background: var(--light-green); box-shadow: 0 0 0 4px rgba(82,183,136,0.15); }
-  .road-step:nth-child(2) .road-dot { background: var(--light-green); }
-  .road-step:nth-child(3) .road-dot { background: var(--peach); color: var(--navy); }
-  .road-step:nth-child(4) .road-dot { background: var(--green); }
-  .road-content h4 { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 0.25rem; padding-top: 0.4rem; }
-  .road-content p { font-size: 0.83rem; color: #9ca3af; line-height: 1.55; }
-  .rm-tag { display: inline-block; margin-top: 0.4rem; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.18rem 0.55rem; border-radius: 20px; background: rgba(82,183,136,0.12); color: var(--light-green); }
-
-  /* ── CTA ── */
-  .cta-section { padding: 6rem 5%; text-align: center; background: var(--navy); position: relative; overflow: hidden; }
-  .cta-blob { position: absolute; border-radius: 50%; pointer-events: none; }
-  .cb1 { width: 400px; height: 400px; background: rgba(82,183,136,0.12); top: -100px; left: -100px; }
-  .cb2 { width: 300px; height: 300px; background: rgba(244,165,138,0.12); bottom: -80px; right: -80px; }
-  .cta-section .section-label { color: var(--peach); }
-  .cta-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: #fff; line-height: 1.2; margin: 0.8rem auto 1.5rem; max-width: 700px; }
-  .cta-title em { font-style: italic; color: var(--peach); }
-  .cta-sub { color: rgba(255,255,255,0.6); font-size: 1rem; max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.7; }
-  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
-  .btn-light { background: #fff; color: var(--navy); padding: 0.85rem 2.2rem; border-radius: 50px; font-size: 0.95rem; font-weight: 600; text-decoration: none; display: inline-block; transition: transform 0.2s, box-shadow 0.2s; }
-  .btn-light:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.2); }
-  .cta-contacts { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
-  .contact-chip { font-size: 0.85rem; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
-  .contact-chip:hover { color: var(--peach); }
-
-  /* ── FOOTER ── */
-  footer { background: #0e1929; color: rgba(255,255,255,0.35); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; padding: 1.8rem 5%; font-size: 0.82rem; }
-  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 900; color: rgba(255,255,255,0.5); }
-  .footer-logo span { color: var(--light-green); }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 960px) {
-    .hero { grid-template-columns: 1fr; gap: 3rem; padding-top: 7rem; }
-    .hero-visual { display: none; }
-    .problem-layout, .solution-intro-grid { grid-template-columns: 1fr; }
-    .science-grid { grid-template-columns: 1fr; }
-    .science-quote { grid-column: auto; }
-    .sol-feature-box { position: static; }
-    .splash-headline { font-size: 2rem; }
-  }
-  @media (max-width: 600px) {
-    .nav-links { display: none; }
-    .section { padding: 5rem 4%; }
-    .motivational-splash { padding: 2rem 5%; }
-    .splash-headline { font-size: 1.7rem; }
-  }
-
-  /* ── ANIMATIONS ── */
-  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .fade-in.visible { opacity: 1; transform: none; }
-  .delay-1 { transition-delay: 0.1s; }
-  .delay-2 { transition-delay: 0.2s; }
-  .delay-3 { transition-delay: 0.3s; }
-</style>
+  <script>
+    /* Motion mode: "full" by default; "calm" when the OS asks for reduced motion
+       (scroll choreography stays, smoothing + ambient loops go); "off" when the
+       visitor opts out with the footer toggle. */
+    (function () {
+      var d = document.documentElement, pref = null;
+      d.classList.add('js');
+      try { pref = localStorage.getItem('fl-motion'); } catch (e) {}
+      var os = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      d.dataset.motion = pref === 'off' ? 'off' : os ? 'calm' : 'full';
+    })();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/DrawSVGPlugin.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/MorphSVGPlugin.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/MotionPathPlugin.min.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">
-    <a href="index.html"><img src="logoo2.png" alt="Website Logo"></a>
-  </div>
-  <ul class="nav-links">
-    <li><a href="#problem">Problem</a></li>
-    <li><a href="#science">Science</a></li>
-    <li><a href="#solution">How It Works</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-  </ul>
-  <a href="#cta" class="nav-cta">Join the Pilot</a>
-</nav>
+  <!-- Sprite: icons + Feyn the mascot (static copies) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="i-arrow-ur" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+      <symbol id="i-insta" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19.5 13.6 12 21l-7.5-7.4A5 5 0 1 1 12 7a5 5 0 1 1 7.5 6.6z"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></symbol>
+      <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2zM22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></symbol>
+      <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 9 12 4 2 9l10 5 10-5z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5M22 9v6"/></symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+      <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3a3 3 0 0 1-3 4M7 5H4a3 3 0 0 0 3 4"/></symbol>
+      <symbol id="i-pen" viewBox="0 0 24 24"><path d="m12 19 7-7 3 3-7 7z"/><path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18z"/><path d="m2 2 7.6 7.6"/><circle cx="11" cy="11" r="2"/></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18.5V20"/><circle cx="10" cy="8" r="3.5"/><path d="M20 20v-1.5a3.5 3.5 0 0 0-2.5-3.35M15.5 4.6a3.5 3.5 0 0 1 0 6.8"/></symbol>
+      <symbol id="i-tablet" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M12 18h.01"/></symbol>
+      <symbol id="i-chat" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22z"/></symbol>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-blob blob-1"></div>
-  <div class="hero-blob blob-2"></div>
-  <div class="hero-blob blob-3"></div>
-  <div class="hero-text fade-in">
-    <span class="hero-eyebrow"><span class="badge-dot"></span> MASTERY as a side-effect</span>
-    <h1 class="hero-title">Stay consistent by Teaching<br><em>what you Learn</em></h1>
-    <p class="hero-subtitle">
-      <strong>Dear Learner! We help you say NO to your excuses.</strong><br> Exams are there to test you, not to decide when you open the book.<br>
-      <strong>Teach to your peers what you are learning in regular 20 minute sessions built into our custom learning tracks.</strong> Your peers help you stay accountable from Day 1.</p>
-    <div class="hero-cta-group">
-      <a href="#solution" class="btn-primary">Explore the Platform</a>
-      <a href="#science" class="btn-ghost">The Science Behind It</a>
-    </div>
+      <symbol id="feyn" viewBox="0 0 200 260">
+        <g fill="none" stroke="#141414" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M86 214 80 248 68 250M114 214l6 34 12 2"/>
+          <path d="M70 168q-18 8-26 26"/>
+          <path d="M130 168q18-8 30-28"/>
+        </g>
+        <path d="M66 150h68l-12 50q-12 24-22 46-10-22-22-46z" fill="#D9A62E" stroke="#141414" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M100 196v46" stroke="#141414" stroke-width="4"/><circle cx="100" cy="192" r="6" fill="#141414"/>
+        <rect x="58" y="82" width="84" height="70" rx="16" fill="#fff" stroke="#141414" stroke-width="5"/>
+        <ellipse cx="84" cy="114" rx="6" ry="8" fill="#141414"/><ellipse cx="116" cy="114" rx="6" ry="8" fill="#141414"/>
+        <circle cx="86" cy="111" r="2" fill="#fff"/><circle cx="118" cy="111" r="2" fill="#fff"/>
+        <ellipse cx="72" cy="131" rx="7" ry="4" fill="#F4A58A"/><ellipse cx="128" cy="131" rx="7" ry="4" fill="#F4A58A"/>
+        <path d="M92 132q8 8 16 0" stroke="#141414" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M64 72v18q36 14 72 0V72" fill="#262626" stroke="#141414" stroke-width="4"/>
+        <path d="m100 40 70 26-70 26-70-26z" fill="#141414"/>
+        <path d="m100 66 50 8v30" stroke="#F5A524" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M144 104h12l-2 16h-8z" fill="#F5A524"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- NAV (wrapper does the centring so GSAP can own the nav's transform) -->
+  <div class="nav-wrap">
+    <header class="nav">
+      <a href="#top" class="nav-logo" aria-label="Feynlearn home"><img src="assets/logo.png" alt="Feynlearn logo: a scribbled brain with a graduation cap and pen-nib mascot" width="603" height="377" fetchpriority="high"></a>
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#science">The science</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+          <li><a href="#parents">For parents</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+      <a href="#cta" class="btn btn-sm btn-ink">Join the pilot</a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><svg class="ic"><use href="#i-menu"/></svg></button>
+    </header>
   </div>
-  <div class="hero-visual fade-in">
-    <div class="hero-chip chip-1">🎯 Feynman Technique</div>
-    <div class="hero-chip chip-2">📈 Peer-to-Peer Mentorship</div>
-    <div class="quote-card">
-      <div class="quote-icon">"</div>
-      <p class="quote-text">If you want to master something, Teach It!</p>
-      <p class="quote-attr">— Richard Feynman</p>
-      <div class="card-divider"></div>
-      <div class="card-stats">
-        <div>
-          <span class="card-stat-num" style="color:var(--light-green);">2×</span>
-          <p class="card-stat-lbl">Deeper retention through teaching</p>
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <a href="#how">How it works</a><a href="#science">The science</a><a href="#roadmap">Roadmap</a><a href="#parents">For parents</a><a href="#faq">FAQ</a><a href="#cta" class="mm-cta">Join the pilot →</a>
+  </div>
+
+  <div id="smooth-wrapper">
+  <div id="smooth-content">
+  <main id="main">
+
+    <!-- ================= HERO ================= -->
+    <section class="hero paper" id="top">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="hand hero-for h-in">for Class 9 &amp; 10 students
+            <svg class="doodle hero-for-arrow" viewBox="0 0 80 40" aria-hidden="true"><path class="draw" d="M4 8c18 2 40 8 58 24M50 30l13 3-3-13"/></svg>
+          </p>
+          <h1 class="hero-title">
+            <span class="ht-line">Don't just</span>
+            <span class="ht-line">study it.</span>
+            <span class="ht-line"><span class="mark">Teach&nbsp;it.<svg class="doodle mark-circle" viewBox="0 0 330 110" preserveAspectRatio="none" aria-hidden="true"><path class="draw" d="M30 30C90 6 250 4 305 26c30 14 22 52-30 64-90 20-220 16-252-12C2 60 30 32 90 20"/></svg></span></span>
+          </h1>
+          <p class="hero-sub h-in">In 20-minute sessions you <strong>explain what you learnt to a peer</strong>. It's how Nobel-winning physicist Richard Feynman learnt anything — and it makes concepts actually stick.</p>
+          <div class="hero-ctas h-in">
+            <a href="#cta" class="btn btn-ink">Join the pilot <svg class="ic"><use href="#i-arrow"/></svg></a>
+            <a href="#how" class="btn btn-paper">See how it works</a>
+          </div>
+          <ul class="hero-tags h-in" aria-label="Highlights">
+            <li class="tag tag-amber">20-min sessions</li>
+            <li class="tag tag-mint">Learn with peers</li>
+            <li class="tag tag-peach">Free graphic tablet</li>
+          </ul>
         </div>
-        <div>
-          <span class="card-stat-num" style="color:var(--peach);">3</span>
-          <p class="card-stat-lbl">Core learning systems on one platform</p>
-        </div>
-        <div>
-          <span class="card-stat-num" style="color:#fff;">200K</span>
-          <p class="card-stat-lbl">Initial target market in India</p>
-        </div>
-        <div>
-          <span class="card-stat-num" style="color:#82b4ff;">4</span>
-          <p class="card-stat-lbl">Roll-out phases</p>
+
+        <div class="hero-art" aria-hidden="true">
+          <svg class="hero-svg" viewBox="0 0 520 580" role="img" aria-label="Feyn, the Feynlearn mascot, turning a messy scribble into a lightbulb idea">
+            <defs>
+              <path id="bulb-shape" d="M260 52C196 52 158 100 158 150c0 38 22 60 44 82 12 12 18 26 18 42h80c0-16 6-30 18-42 22-22 44-44 44-82 0-50-38-98-102-98z"/>
+            </defs>
+            <path id="scribble" class="scribble" d=""/>
+            <g class="bulb-extra">
+              <path class="bulb-base draw" d="M226 292h68M232 310h56M244 328h32"/>
+              <path class="bulb-rays draw" d="M260 18V-6M150 60l-18-18M370 60l18-18M122 150H98M398 150h24"/>
+              <path class="bulb-fil draw" d="M232 270v-60l14-18 14 18 14-18 14 18v60"/>
+            </g>
+            <text class="aha" x="408" y="96">aha!</text>
+
+            <g transform="translate(160 312)"><g class="feyn">
+              <g class="f-legs" fill="none" stroke="#141414" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M86 214 80 248 68 250M114 214l6 34 12 2"/></g>
+              <path class="f-arm-l" d="M70 168q-18 8-26 26" fill="none" stroke="#141414" stroke-width="5" stroke-linecap="round"/>
+              <path d="M66 150h68l-12 50q-12 24-22 46-10-22-22-46z" fill="#D9A62E" stroke="#141414" stroke-width="5" stroke-linejoin="round"/>
+              <path d="M100 196v46" stroke="#141414" stroke-width="4"/><circle cx="100" cy="192" r="6" fill="#141414"/>
+              <path d="M80 160q5 22 11 34" stroke="#fff" stroke-opacity=".55" stroke-width="4" fill="none" stroke-linecap="round"/>
+              <path class="f-arm-r" d="M130 168q18-8 30-28" fill="none" stroke="#141414" stroke-width="5" stroke-linecap="round"/>
+              <g class="f-head">
+                <rect x="58" y="82" width="84" height="70" rx="16" fill="#fff" stroke="#141414" stroke-width="5"/>
+                <g class="f-eyes"><ellipse cx="84" cy="114" rx="6" ry="8" fill="#141414"/><ellipse cx="116" cy="114" rx="6" ry="8" fill="#141414"/><circle cx="86" cy="111" r="2" fill="#fff"/><circle cx="118" cy="111" r="2" fill="#fff"/></g>
+                <ellipse cx="72" cy="131" rx="7" ry="4" fill="#F4A58A"/><ellipse cx="128" cy="131" rx="7" ry="4" fill="#F4A58A"/>
+                <path class="f-mouth" d="M92 132q8 8 16 0" stroke="#141414" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <g class="f-cap">
+                  <path d="M64 72v18q36 14 72 0V72" fill="#262626" stroke="#141414" stroke-width="4"/>
+                  <path d="m100 40 70 26-70 26-70-26z" fill="#141414"/>
+                  <g class="f-tassel"><path d="m100 66 50 8v30" stroke="#F5A524" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M144 104h12l-2 16h-8z" fill="#F5A524"/></g>
+                </g>
+              </g>
+            </g></g>
+          </svg>
+          <div class="sticky sticky-yellow hero-note" data-speed="1.08">
+            <span class="tape"></span>
+            <p class="hand">Why does light bend <u>towards</u> the normal?</p>
+            <p class="hand small">explain it to me →</p>
+          </div>
+          <p class="hand hero-caption" data-speed="0.95">← that's Feyn. Feyn's brain was a mess too.</p>
         </div>
       </div>
+      <p class="hand scroll-hint" aria-hidden="true">scroll to clear the mess ↓</p>
+    </section>
+
+    <!-- tape marquee -->
+    <div class="tapes" aria-hidden="true">
+      <div class="tape-strip tape-a"><div class="tape-track"><span>Teach it. Own it. Forever.</span><span>✦</span><span>Your excuses don't study for you</span><span>✦</span><span>Conquer yourself</span><span>✦</span><span>The student who teaches, masters</span><span>✦</span><span>Teach it. Own it. Forever.</span><span>✦</span><span>Your excuses don't study for you</span><span>✦</span><span>Conquer yourself</span><span>✦</span><span>The student who teaches, masters</span><span>✦</span></div></div>
     </div>
-  </div>
-</section>
 
-<!-- MOTIVATIONAL SPLASH -->
-<div class="motivational-splash">
-  <div class="splash-bg" aria-hidden="true">
-    <div class="splash-particle" style="width:6px;height:6px;background:rgba(82,183,136,0.5);left:12%;top:70%;--dur:4s;--delay:0s;"></div>
-    <div class="splash-particle" style="width:4px;height:4px;background:rgba(244,165,138,0.5);left:25%;top:80%;--dur:5.5s;--delay:0.8s;"></div>
-    <div class="splash-particle" style="width:5px;height:5px;background:rgba(82,183,136,0.4);left:40%;top:75%;--dur:4.8s;--delay:1.4s;"></div>
-    <div class="splash-particle" style="width:6px;height:6px;background:rgba(244,165,138,0.45);left:60%;top:78%;--dur:5.2s;--delay:0.3s;"></div>
-    <div class="splash-particle" style="width:4px;height:4px;background:rgba(82,183,136,0.5);left:75%;top:72%;--dur:4.2s;--delay:1s;"></div>
-    <div class="splash-particle" style="width:5px;height:5px;background:rgba(255,255,255,0.2);left:88%;top:80%;--dur:6s;--delay:0.5s;"></div>
-  </div>
-  <h2 class="splash-headline" id="splashText"><span class="cursor"></span></h2>
-  <p class="splash-sub" id="splashSub"></p>
-</div>
-<div class="splash-rule"></div>
+    <!-- ================= PROBLEM ================= -->
+    <section class="section problem" id="problem">
+      <header class="sec-head">
+        <h2 class="h2 split">Sound <span class="u-wrap">familiar?<svg class="doodle underline" viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path class="draw" d="M4 12C60 4 140 16 200 8s90-4 96 2"/></svg></span></h2>
+        <p class="lead fade">Three things that quietly wreck how students learn — none of them are your fault.</p>
+      </header>
 
-<!-- PROBLEM -->
-<section class="section" id="problem">
-  <div class="section-label">The Problem</div>
-  <h2 class="section-title">Why today's learning<br><span class="rust">isn't working.</span></h2>
-  <div class="problem-layout">
-    <div>
-      <p class="section-sub">Students across the world face a broken learning loop.</p>
-      <div class="problem-cards" style="margin-top:2rem;">
-        <div class="prob-card fade-in">
-          <div class="prob-icon-wrap pi1">🐢</div>
-          <div>
-            <h3>Passive Learning Trap</h3>
-            <p>Your existing classroom, coaching and tuition are only consumption platforms where you memorise and forget. </p>
+      <div class="notes">
+        <article class="note-card">
+          <div class="sticky sticky-yellow"><span class="tape"></span><p class="hand">Read the chapter 3 times.<br>Exam day → <strong>total blank.</strong></p></div>
+          <h3>The passive learning trap</h3>
+          <p>Classrooms, coaching and tuition are built for consuming. You memorise, forget, and repeat.</p>
+        </article>
+        <article class="note-card">
+          <div class="sticky sticky-peach"><span class="tape"></span><p class="hand">Had the coolest doubt during self-study.<br><strong>Nobody asked.</strong> Nobody graded it.</p></div>
+          <h3>Curiosity goes unseen</h3>
+          <p>You fall down brilliant rabbit holes of questions — but grades don't reward it, and teachers never hear about it.</p>
+        </article>
+        <article class="note-card">
+          <div class="sticky sticky-mint"><span class="tape"></span><p class="hand">Day 1: full josh.<br>Day 3: "kal se <strong>pakka</strong>."</p></div>
+          <h3>Procrastination</h3>
+          <p>It's not your phone or your hobbies. Exams just aren't enough reason to study every single day.</p>
+        </article>
+      </div>
+
+      <div class="report fade">
+        <div class="report-head">
+          <p class="report-kicker">Report card</p>
+          <h3 class="h3">Where students fall short</h3>
+        </div>
+        <ul class="report-rows">
+          <li><span class="rr-label">Surface memorisation <em class="hand red-note">too much ratta!</em></span><svg class="marker" viewBox="0 0 400 24" preserveAspectRatio="none" aria-hidden="true"><path class="mk-track" d="M8 12h384"/><path class="mk-bar mk-red" data-v="88" d="M8 13c60-3 130 2 200-1s130 1 184-1"/></svg><b class="rr-val"><span data-count="88">88</span>%</b>
+            <svg class="doodle red-circle" viewBox="0 0 120 70" preserveAspectRatio="none" aria-hidden="true"><path class="draw" d="M20 18C50 2 104 6 112 30s-30 38-66 36S2 50 8 30 50 6 70 8"/></svg></li>
+          <li><span class="rr-label">Deep understanding</span><svg class="marker" viewBox="0 0 400 24" preserveAspectRatio="none" aria-hidden="true"><path class="mk-track" d="M8 12h384"/><path class="mk-bar" data-v="32" d="M8 13c60-3 130 2 200-1s130 1 184-1"/></svg><b class="rr-val"><span data-count="32">32</span>%</b></li>
+          <li><span class="rr-label">Consistent study habit</span><svg class="marker" viewBox="0 0 400 24" preserveAspectRatio="none" aria-hidden="true"><path class="mk-track" d="M8 12h384"/><path class="mk-bar" data-v="41" d="M8 13c60-3 130 2 200-1s130 1 184-1"/></svg><b class="rr-val"><span data-count="41">41</span>%</b></li>
+          <li><span class="rr-label">Remember it after 1 month</span><svg class="marker" viewBox="0 0 400 24" preserveAspectRatio="none" aria-hidden="true"><path class="mk-track" d="M8 12h384"/><path class="mk-bar" data-v="22" d="M8 13c60-3 130 2 200-1s130 1 184-1"/></svg><b class="rr-val"><span data-count="22">22</span>%</b></li>
+        </ul>
+        <p class="report-foot hand">Feynlearn is designed to <span class="hl">flip these numbers</span>.
+          <svg class="doodle report-arrow" viewBox="0 0 120 60" aria-hidden="true"><path class="draw" d="M6 50C30 10 80 4 110 20M96 8l14 12-16 8"/></svg></p>
+      </div>
+    </section>
+
+    <!-- ================= SCIENCE (blackboard) ================= -->
+    <section class="board" id="science">
+      <div class="board-inner">
+        <p class="chalk-kicker">The science bit</p>
+        <blockquote class="chalk-quote">
+          <p class="chalk-text">“If you want to master something, teach it.”</p>
+          <svg class="doodle chalk-line" viewBox="0 0 600 24" preserveAspectRatio="none" aria-hidden="true"><path class="draw" d="M6 14C120 6 260 18 380 10s180 2 214 4"/></svg>
+          <cite>— Richard Feynman, Nobel Prize-winning physicist</cite>
+        </blockquote>
+
+        <div class="board-grid">
+          <article class="index-card" data-speed="1.05">
+            <span class="tape"></span>
+            <p class="ic-kicker">Learning science</p>
+            <h3>The Feynman Technique</h3>
+            <p>You only truly understand something when you can explain it simply to someone else. If you get stuck explaining — that's exactly the bit you need to learn.</p>
+          </article>
+          <div class="board-stat">
+            <svg class="doodle chalk-atom" viewBox="0 0 200 200" aria-hidden="true"><g class="draw-g"><ellipse class="draw" cx="100" cy="100" rx="86" ry="30"/><ellipse class="draw" cx="100" cy="100" rx="86" ry="30" transform="rotate(60 100 100)"/><ellipse class="draw" cx="100" cy="100" rx="86" ry="30" transform="rotate(120 100 100)"/></g><circle cx="100" cy="100" r="8" class="atom-core"/></svg>
+            <p class="stat-num"><span data-count="2">2</span>×</p>
+            <p class="stat-lbl">deeper retention when you learn by teaching</p>
+          </div>
+          <article class="index-card" data-speed="0.95">
+            <span class="tape"></span>
+            <p class="ic-kicker">Psychology</p>
+            <h3>Social Learning Theory</h3>
+            <p>Psychologist Albert Bandura showed that we learn most powerfully with and from other people — not alone with a textbook.</p>
+          </article>
+        </div>
+
+        <p class="board-claim split">We're not another place to <s>watch lectures</s>. We're the daily push that <span class="chalk-hl">beats your excuses.</span></p>
+      </div>
+    </section>
+
+    <!-- ================= HOW IT WORKS (3D notebook) ================= -->
+    <section class="how paper" id="how">
+      <header class="sec-head center">
+        <p class="hand kicker-hand">how Feynlearn works</p>
+        <h2 class="h2 split">3 steps. 20 minutes. <span class="hl-block">Every day.</span></h2>
+      </header>
+
+      <div class="book-stage">
+        <div class="book">
+          <!-- left base: step 1 mock -->
+          <div class="face base-left" style="--o:2" aria-hidden="true">
+            <div class="mock-plan">
+              <p class="mp-title hand">Ch. 10 — Light</p>
+              <ul>
+                <li class="done"><i></i>Reflection &amp; mirrors <span>20m</span></li>
+                <li class="done"><i></i>Spherical mirrors <span>20m</span></li>
+                <li class="today"><i></i>Refraction — <b>teach today</b> <span>20m</span></li>
+                <li><i></i>Lenses &amp; power <span>20m</span></li>
+                <li><i></i>Revision quiz <span>15m</span></li>
+              </ul>
+              <p class="hand mp-note">sliced into bite-size bits ✓</p>
+            </div>
+          </div>
+          <!-- right base: final page -->
+          <div class="face base-right" style="--o:8">
+            <div class="page-text">
+              <p class="step-no">+</p>
+              <h3>And that's the loop.</h3>
+              <p>Plan → Teach → Practise. Repeat daily and mastery compounds — while your peers keep you showing up from day one.</p>
+              <p class="hand blue">no more "kal se pakka" ✓</p>
+            </div>
+          </div>
+
+          <div class="page" data-page="1">
+            <div class="face front" style="--o:1">
+              <div class="page-text">
+                <p class="step-no">01</p>
+                <h3>Smart Study Plan</h3>
+                <p>Your chapter gets sliced into small sub-topics, with the best resources to learn each one. Feynlearn auto-schedules a 20-minute session for every sub-topic.</p>
+                <p class="hand blue">getting ready to teach = where the real learning happens</p>
+              </div>
+            </div>
+            <div class="face back" style="--o:4" aria-hidden="true">
+              <div class="mock-chat">
+                <p class="mc-live"><span class="dot"></span>Live session · 14:32 / 20:00</p>
+                <p class="bubble you">So the ray bends <em>towards</em> the normal when it enters glass, because…</p>
+                <p class="bubble peer">Wait — why towards and not away?</p>
+                <p class="bubble you">Ohh. Because it slows down in glass! Let me draw it…</p>
+                <p class="hand mc-note">this is where it clicks</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="page" data-page="2">
+            <div class="face front" style="--o:3">
+              <div class="page-text">
+                <p class="step-no">02</p>
+                <h3>Teach-to-Peer sessions</h3>
+                <p>You teach the topic to a student moderator, who asks the right doubts and questions — pinpointing exactly where your understanding breaks down.</p>
+                <p class="hand blue">the core of Feynlearn</p>
+              </div>
+            </div>
+            <div class="face back" style="--o:6" aria-hidden="true">
+              <div class="mock-quiz">
+                <p class="mq-q">Q3. A ray goes from air into glass. It bends…</p>
+                <p class="mq-opt">a) away from the normal</p>
+                <p class="mq-opt right">b) towards the normal <span class="tick">✓</span></p>
+                <p class="mq-opt">c) it doesn't bend</p>
+                <p class="mq-score hand">9/10 <span>great work!</span></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="page" data-page="3">
+            <div class="face front" style="--o:5">
+              <div class="page-text">
+                <p class="step-no">03</p>
+                <h3>Mastery quizzes</h3>
+                <p>A quick daily quiz after every session, with detailed solutions. Repeated, focused practice that gets you exam-ready.</p>
+                <p class="hand blue">small daily wins &gt; one big cram</p>
+              </div>
+            </div>
+            <div class="face back" style="--o:7" aria-hidden="true">
+              <svg class="loop-doodle" viewBox="0 0 300 300">
+                <path class="draw" d="M150 40c70 0 110 50 110 110s-50 110-110 110S40 210 40 150 80 40 150 40"/>
+                <path class="draw" d="M248 120l12 30 18-26"/>
+                <text x="150" y="30" text-anchor="middle">Plan</text>
+                <text x="280" y="250" text-anchor="middle">Teach</text>
+                <text x="22" y="250" text-anchor="middle">Practise</text>
+                <text x="150" y="160" text-anchor="middle" class="loop-center">repeat daily</text>
+              </svg>
+            </div>
           </div>
         </div>
-        <div class="prob-card fade-in delay-1">
-          <div class="prob-icon-wrap pi2">📚</div>
-          <div>
-            <h3>Self-study insights don't reach teachers</h3>
-            <p>Students might fall down a rabbit hole of questions during self study, but grades do not reward for this. Curiosity is killed. </p>
-          </div>
+        <div class="book-steps" aria-hidden="true"><span class="is-on"></span><span></span><span></span><span></span></div>
+      </div>
+    </section>
+
+    <!-- ================= EXTRAS ================= -->
+    <section class="section extras">
+      <header class="sec-head center">
+        <h2 class="h2 split">Plus some <span class="hl-block">seriously good</span> extras</h2>
+      </header>
+      <div class="stickers">
+        <div class="sticker-wrap">
+        <article class="sticker s-amber">
+          <svg class="ic sticker-ic"><use href="#i-tablet"/></svg>
+          <p class="sticker-big">FREE</p>
+          <h3>Graphic tablet</h3>
+          <p>Every learner gets one at onboarding — your own virtual whiteboard for teaching.</p>
+        </article>
         </div>
-        <div class="prob-card fade-in delay-2">
-          <div class="prob-icon-wrap pi3">📵</div>
-          <div>
-            <h3>Procrastination</h3>
-            <p>The hidden reason behind this aren't distractions or extra-curriculars. Exams simply aren't enough of a motivation to study everyday.</p>
-          </div>
+        <div class="sticker-wrap">
+        <article class="sticker s-mint">
+          <svg class="ic sticker-ic"><use href="#i-users"/></svg>
+          <p class="sticker-big">Always free</p>
+          <h3>Community sessions</h3>
+          <p>Request and attend sessions from anyone on the platform. Learn from everyone.</p>
+        </article>
+        </div>
+        <div class="sticker-wrap">
+        <article class="sticker s-peach">
+          <svg class="ic sticker-ic"><use href="#i-chat"/></svg>
+          <p class="sticker-big">On WhatsApp</p>
+          <h3>Insights for your teachers</h3>
+          <p>Your self-study wins reach your teachers directly — no extra app for them.</p>
+        </article>
         </div>
       </div>
-    </div>
-    <div class="problem-visual fade-in">
-      <p class="pv-label">The learning gap — where students fall short</p>
-      <div class="pv-stat">
-        <div class="pv-stat-row">
-          <span class="pv-bar-label">Surface memorization</span>
-          <div class="pv-bar-track"><div class="pv-bar-fill" style="width:88%;background:#f4a58a;"></div></div>
-          <span class="pv-bar-pct">88%</span>
-        </div>
-        <div class="pv-stat-row">
-          <span class="pv-bar-label">Deep understanding</span>
-          <div class="pv-bar-track"><div class="pv-bar-fill" style="width:32%;background:#52b788;"></div></div>
-          <span class="pv-bar-pct">32%</span>
-        </div>
-        <div class="pv-stat-row">
-          <span class="pv-bar-label">Consistent study habit</span>
-          <div class="pv-bar-track"><div class="pv-bar-fill" style="width:41%;background:#f0c040;"></div></div>
-          <span class="pv-bar-pct">41%</span>
-        </div>
-        <div class="pv-stat-row">
-          <span class="pv-bar-label">Recall after 1 month</span>
-          <div class="pv-bar-track"><div class="pv-bar-fill" style="width:22%;background:#82a4ff;"></div></div>
-          <span class="pv-bar-pct">22%</span>
-        </div>
+
+      <div class="vision fade">
+        <p class="hand kicker-hand">it's not just about marks</p>
+        <h3 class="h3">You'll also get good at <span class="u-wrap">explaining, speaking up and breaking down tough ideas<svg class="doodle underline" viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path class="draw" d="M4 12C60 4 140 16 200 8s90-4 96 2"/></svg></span> — skills that last way beyond any exam.</h3>
+        <ul class="chips">
+          <li><svg class="ic"><use href="#i-book"/></svg>Any subject</li>
+          <li><svg class="ic"><use href="#i-cap"/></svg>Classes 6–12 (soon)</li>
+          <li><svg class="ic"><use href="#i-globe"/></svg>Online sessions</li>
+          <li><svg class="ic"><use href="#i-trophy"/></svg>Community events</li>
+          <li><svg class="ic"><use href="#i-pen"/></svg>Whiteboard tools</li>
+          <li><svg class="ic"><use href="#i-users"/></svg>Mentorship</li>
+        </ul>
       </div>
-      <p class="pv-caption">Feynlearn is designed to flip these numbers.</p>
+    </section>
+
+    <!-- ================= ROADMAP (motion path) ================= -->
+    <section class="section roadmap paper" id="roadmap">
+      <header class="sec-head center">
+        <p class="hand kicker-hand">where we're headed</p>
+        <h2 class="h2 split">Four steps — proof before scale.</h2>
+      </header>
+      <div class="road">
+        <svg class="road-svg" aria-hidden="true"><path id="road-path" class="road-line" d=""/></svg>
+        <svg class="road-feyn" viewBox="0 0 200 260" aria-hidden="true"><use href="#feyn"/></svg>
+        <ol class="stops">
+          <li class="stop">
+            <span class="stop-dot"></span>
+            <div class="stop-card">
+              <p class="you-here hand">← we are here!</p>
+              <p class="stop-no">Stage 1 · Now</p>
+              <h3>Pilot study</h3>
+              <p>6–10 students from Classes 9 &amp; 10. Proper psychological studies to prove the learning model and measure real results.</p>
+            </div>
+          </li>
+          <li class="stop">
+            <span class="stop-dot"></span>
+            <div class="stop-card">
+              <p class="stop-no">Stage 2</p>
+              <h3>Classes 6–12</h3>
+              <p>Open to all secondary students. School partnerships, awareness events, and a Teacher's version to track progress in class.</p>
+            </div>
+          </li>
+          <li class="stop">
+            <span class="stop-dot"></span>
+            <div class="stop-card">
+              <p class="stop-no">Stage 3</p>
+              <h3>An app for everyone</h3>
+              <p>A free app with an AI agent-based learning engine — for every kind of learner, every subject, every level.</p>
+            </div>
+          </li>
+          <li class="stop">
+            <span class="stop-dot"></span>
+            <div class="stop-card">
+              <p class="stop-no">Stage 4</p>
+              <h3>A whole learning ecosystem</h3>
+              <p>Hackathons, competitions, real projects and certification-based learning tracks.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================= PARENTS ================= -->
+    <section class="section parents" id="parents">
+      <article class="letter">
+        <p class="hand letter-hi">Dear parents,</p>
+        <h2 class="h3">Discipline over last-minute motivation.</h2>
+        <div class="letter-cols">
+          <p>Feynlearn builds a <strong>daily study habit</strong> instead of exam-time cramming. Your child prepares and explains one small topic a day to a peer — the most reliable way to truly understand it.</p>
+          <p>Along the way they build <strong>communication skills and confidence</strong>. Teachers receive self-study insights on WhatsApp, and our pilot runs as a <strong>scientific study</strong> to measure real outcomes.</p>
+        </div>
+        <div class="letter-ctas">
+          <a class="btn btn-ink" href="https://forms.gle/cpFig78icbWvvpJB6" target="_blank" rel="noopener"><svg class="ic"><use href="#i-heart"/></svg>Help us understand your child</a>
+          <a class="btn btn-paper" href="mailto:hellobluntbeak@gmail.com?subject=Contact%20Request&amp;body=Hello%20there"><svg class="ic"><use href="#i-mail"/></svg>Email the founder</a>
+        </div>
+        <p class="hand letter-sign">— Team Feynlearn, Pune</p>
+      </article>
+    </section>
+
+    <!-- ================= FAQ ================= -->
+    <section class="section faq" id="faq" aria-labelledby="faq-title">
+      <header class="sec-head center">
+        <p class="hand kicker-hand">quick answers</p>
+        <h2 class="h2 split" id="faq-title">Questions students &amp; parents ask</h2>
+      </header>
+      <div class="faq-list">
+        <details class="faq-item"><summary>What is Feynlearn?</summary><p>Feynlearn is a learning-by-teaching platform for Class 9 and 10 students. You explain what you are learning to a peer in regular 20-minute sessions, using the Feynman Technique, so concepts actually stick.</p></details>
+        <details class="faq-item"><summary>Who is Feynlearn for?</summary><p>Right now the pilot is for students in Classes 9 and 10. We plan to expand to Classes 6 to 12 and, later, to a free app for all kinds of learners.</p></details>
+        <details class="faq-item"><summary>What is the Feynman Technique?</summary><p>It is a learning method named after Nobel Prize-winning physicist Richard Feynman: you only truly understand something when you can explain it simply to someone else. Where you get stuck explaining is exactly what you still need to learn.</p></details>
+        <details class="faq-item"><summary>How long is a Feynlearn session?</summary><p>Each teach-to-peer session is 20 minutes. Feynlearn splits every chapter into small sub-topics and schedules a 20-minute session for each one automatically.</p></details>
+        <details class="faq-item"><summary>What happens in a teach-to-peer session?</summary><p>You teach the topic to a student moderator who asks the right doubts and questions to pinpoint exactly where your understanding breaks down. A short daily quiz with detailed solutions follows to build exam readiness.</p></details>
+        <details class="faq-item"><summary>Is Feynlearn free?</summary><p>Community sessions, where you attend sessions from anyone on the platform, are always free, and every learner receives a graphic tablet for free at onboarding. You can pre-register for pilot discounts using the form on this page.</p></details>
+        <details class="faq-item"><summary>How can I join the Feynlearn pilot?</summary><p>Pre-register using the form on this page. The pilot is limited to 6 to 10 students from Classes 9 and 10 and is based in Pune, India. Parents can also email the founder with questions.</p></details>
+      </div>
+    </section>
+
+    <div class="tapes" aria-hidden="true">
+      <div class="tape-strip tape-b"><div class="tape-track"><span>Pilot seats: 6–10 students</span><span>✦</span><span>Class 9 &amp; 10</span><span>✦</span><span>Learning by teaching</span><span>✦</span><span>Pilot seats: 6–10 students</span><span>✦</span><span>Class 9 &amp; 10</span><span>✦</span><span>Learning by teaching</span><span>✦</span><span>Pilot seats: 6–10 students</span><span>✦</span><span>Class 9 &amp; 10</span><span>✦</span><span>Learning by teaching</span><span>✦</span></div></div>
     </div>
+
+    <!-- ================= CTA ================= -->
+    <section class="cta paper" id="cta">
+      <div class="confetti" aria-hidden="true"></div>
+      <svg class="cta-feyn" viewBox="0 0 200 260" aria-hidden="true"><use href="#feyn"/></svg>
+      <p class="hand kicker-hand">only 6–10 pilot seats</p>
+      <h2 class="cta-title split">Be one of the <span class="mark-y">first Feynlearners.</span></h2>
+      <p class="lead fade">Ready to go beyond marks? Pre-register now and get pilot discounts.</p>
+      <div class="cta-btns fade">
+        <a class="btn btn-ink btn-xl" href="https://docs.google.com/forms/d/e/1FAIpQLScLxNMjd7U4MFCKnIVlY9Wot0ScJ0GOegeP24ZN8lfqx6zm0g/viewform?usp=publish-editor" target="_blank" rel="noopener">Pre-register for pilot discounts <svg class="ic"><use href="#i-arrow-ur"/></svg></a>
+        <a class="btn btn-paper" href="https://www.instagram.com/feynlearn.in/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-insta"/></svg>Follow @feynlearn.in</a>
+      </div>
+      <svg class="doodle cta-arrow" viewBox="0 0 160 120" aria-hidden="true"><path class="draw" d="M10 10c10 60 60 90 130 86M124 82l18 14-20 10"/></svg>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <img src="assets/logo.png" alt="Feynlearn" width="603" height="377" class="footer-logo" loading="lazy">
+    <p>© 2026 Feynlearn (Edtruce) — Learning by Teaching · Pilot phase active · Pune, India</p>
+    <button type="button" class="motion-toggle" aria-pressed="false">Reduce motion</button>
+  </footer>
   </div>
-</section>
-
-<!-- SCIENCE -->
-<section class="section how-bg" id="science">
-  <div class="how-inner">
-    <div class="how-header fade-in">
-      <div class="section-label">Why It Works</div>
-      <h2 class="section-title">Built on <em>real science,</em><br>not guesswork.</h2>
-      <p class="section-sub">Feynlearn connects the two learning phases in every student's life — The confused start and then the path towards Mastery.</p>
-    </div>
-    <div class="science-grid">
-      <div class="sci-card sc1 fade-in">
-        <span class="sci-tag st-green">Learning Science</span>
-        <h3>The Feynman Technique</h3>
-        <p>Nobel Prize-winning physicist Richard Feynman discovered that you only truly understand something when you can explain it simply to someone else.</p>
-      </div>
-      <div class="sci-card sc2 fade-in delay-1">
-        <span class="sci-tag st-peach">Psychology</span>
-        <h3>Albert Bandura's Social Learning Theory</h3>
-        <p>Bandura proved that humans learn most powerfully through social interaction — not isolated study.</p>
-      </div>
-      <div class="science-quote fade-in delay-2">
-        <div class="sq-mark">"</div>
-        <div>
-          <p class="sq-text">Helping you build the learning discipline instead of sudden bursts of motivation — is what makes Feynlearn genuinely different.</p>
-          <span class="sq-attr">We are a productivity tool designed to motivate you against your excuses. Not another consumption platform.</span>
-        </div>
-      </div>
-    </div>
   </div>
-</section>
-
-<!-- SOLUTION -->
-<section class="section" id="solution" style="background:#fff;">
-  <div class="section-label">How It Works</div>
-  <h2 class="section-title">Three systems.<br>One <em>learning loop.</em></h2>
-  <div class="solution-intro-grid">
-    <div class="sol-steps">
-      <div class="sol-step fade-in">
-        <!--<span class="ss-num" style="font-size:1.5rem;">1️⃣</span>-->
-        <div class="ss-icon-wrap si1">1️⃣</div>
-        <div class="ss-content">
-          <h3>Smart Study Plan</h3>
-          <p>Your chapter gets sliced into digestible sub-topics accompanied by the best resources to learn from. Automatic, regular scheduling of bite sized 20 min Feynman sessions for every sub-topic. <strong>Preparation for teaching in these sessions is where most of your Active learning takes place.</strong></p>
-          <span class="ss-badge">Consistent Learning</span>
-        </div>
-      </div>
-      <div class="sol-step fade-in delay-1">
-        <!--<span class="ss-num" style="font-size:1.5rem;">2️⃣</span>-->
-        <div class="ss-icon-wrap si2">2️⃣</div>
-        <div class="ss-content">
-          <h3>'Teach to Peer' Sessions</h3>
-          <p>The Feynman sessions involve teaching to a <strong>student moderator</strong> — who asks the right doubts and questions to pin-point exactly where understanding breaks down.</p>
-          <span class="ss-badge">Core Feature</span>
-        </div>
-      </div>
-      <div class="sol-step fade-in delay-2">
-        <!--<span class="ss-num" style="font-size:1.5rem;">3️⃣</span>-->
-        <div class="ss-icon-wrap si3">3️⃣</div>
-        <div class="ss-content">
-          <h3>Mastery Learning</h3>
-          <p>Daily quizzes accompanied with detailed solutions — making learners exam-ready through repeated, focused practice after every session.</p>
-          <span class="ss-badge">Daily Practice</span>
-        </div>
-      </div>
-      <div class="sol-step fade-in delay-3">
-        <span class="ss-num">04</span>
-        <div class="ss-icon-wrap si4">🫂</div>
-        <div class="ss-content">
-          <h3>Request and attend community sessions</h3>
-          <p>Attend community sessions from anyone on the platform. This is always free.</p>
-          <span class="ss-badge">Cross-mentoring</span>
-        </div>
-      </div>
-      <div class="sol-step fade-in delay-3">
-        <span class="ss-num">05</span>
-        <div class="ss-icon-wrap si4">✍🏻</div>
-        <div class="ss-content">
-          <h3>Graphic tablet for virtual whiteboard</h3>
-          <p>Learners receive a graphic tablet for free when being on-boarded to our platform.</p>
-          <span class="ss-badge">Enhanced Teach-to-Learn experience</span>
-        </div>
-      </div>
-      <div class="sol-step fade-in delay-3">
-        <span class="ss-num">06</span>
-        <div class="ss-icon-wrap si4">🧑‍🏫</div>
-        <div class="ss-content">
-          <h3>Self study insights to teachers</h3>
-          <p>The insights will be sent directly on WhatsApp requiring no additional download by the teacher.</p>
-          <span class="ss-badge">School-partnership</span>
-        </div>
-      </div>
-    </div>
-    <div class="sol-feature-box fade-in">
-      <div>
-        <p class="sfb-head">Platform Vision</p>
-        <h3 class="sfb-title">A community of learners who <em>grow together.</em></h3>
-      </div>
-      <div class="sfb-divider"></div>
-      <p class="sfb-body">Learners don't just improve academically. They build communication skills, confidence, and the ability to break down complex ideas — skills that serve them far beyond any exam.</p>
-      <div class="sfb-divider"></div>
-      <div class="sfb-tags">
-        <span class="sfb-tag">📖 Any subject</span>
-        <span class="sfb-tag">🎓 Classes 6–12</span>
-        <span class="sfb-tag">🌐 Online sessions</span>
-        <span class="sfb-tag">🏆 Community events</span>
-        <span class="sfb-tag">🖊️ Whiteboard tools</span>
-        <span class="sfb-tag">🤝 Mentorship</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ROADMAP -->
-<section class="section" id="roadmap">
-  <div class="section-label">Roadmap</div>
-  <h2 class="section-title">Four deliberate stages —<br>building <em>proof before scale.</em></h2>
-  <p class="section-sub" style="margin-bottom:3rem;">From a focused pilot to a global learning community — one intentional step at a time.</p>
-  <div class="market-roadmap fade-in">
-    <div class="road-step">
-      <div class="road-dot active">NOW</div>
-      <div class="road-content">
-        <h4>Pilot Study</h4>
-        <p>6–10 students from Classes 9 &amp; 10. Scientific psychological studies to validate the core learning model and measure real outcomes.</p>
-        <span class="rm-tag">Active Phase</span>
-      </div>
-    </div>
-    <div class="road-step">
-      <div class="road-dot">2</div>
-      <div class="road-content">
-        <h4>Expand to Classes 6–12</h4>
-        <p>Accommodate all secondary students. Lobby schools, run sensitization events, and introduce a Teacher's version to track student progress inside classrooms.</p>
-      </div>
-    </div>
-    <div class="road-step">
-      <div class="road-dot">3</div>
-      <div class="road-content">
-        <h4>App for All</h4>
-        <p>AI agent-based learning engine. A free downloadable app that accommodates all types of learners across every subject and level.</p>
-      </div>
-    </div>
-    <div class="road-step">
-      <div class="road-dot">4</div>
-      <div class="road-content">
-        <h4>Learning Ecosystem</h4>
-        <p>Hackathons, competitions, practical projects and certification based learning tracks.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-section" id="cta">
-  <div class="cta-blob cb1"></div>
-  <div class="cta-blob cb2"></div>
-  <div class="section-label">✦ Join the Movement</div>
-  <h2 class="cta-title">We make passionate learners,<br><em>Masters of their passion.</em></h2>
-  <p class="cta-sub">Whether you're a student ready to go beyond marks, a school that wants to build a learning culture, or simply someone who loves to learn deeply — Feynlearn is for you.</p>
-  <div class="cta-btns">
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLScLxNMjd7U4MFCKnIVlY9Wot0ScJ0GOegeP24ZN8lfqx6zm0g/viewform?usp=publish-editor" class="btn-light">Pre-register for discounts</a>
-    <a href="https://www.instagram.com/feynlearn.in/" class="btn-light" target="_blank">📸 @feynlearn.in on Instagram</a>
-    <a href="https://forms.gle/cpFig78icbWvvpJB6" class="btn-light" target="_blank">Help us understand your child</a>
-  </div>
-  <div class="cta-contacts">
-    <a href="mailto:hellobluntbeak@gmail.com?subject=Contact%20Request&body=Hello%20there" class="contact-chip">Email the Founder</a>
-    <span class="contact-chip" style="cursor:default;">Pilot Phase — Classes 9 &amp; 10</span>
-  </div>
-</section>
-
-<footer>
-  <div class="footer-logo">Feyn<span>learn</span></div>
-  <p>© 2026 Feynlearn (Edtruce) — Learning by Teaching</p>
-  <p>Pilot Phase Active · Pune, India</p>
-</footer>
-
-<script>
-  /* ── TYPEWRITER SPLASH ── */
-  const phrases = [
-    { text: "Conquer Yourself.",            sub: "The only battle that truly matters." },
-    { text: "Your excuses don't study for you.", sub: "Show up. Every single day." },
-    { text: "Teach it. Own it. Forever.",   sub: "Understanding outlasts every shortcut." },
-    { text: "The student who teaches, masters.", sub: "This is the Feynman promise." }
-  ];
-
-  const headlineEl = document.getElementById('splashText');
-  const subEl      = document.getElementById('splashSub');
-  const cursor     = headlineEl.querySelector('.cursor');
-
-  let phraseIdx = 0, charIdx = 0, deleting = false, paused = false, started = false;
-
-  function updateSub(text) {
-    subEl.style.opacity = '0';
-    subEl.style.transform = 'translateY(8px)';
-    setTimeout(() => {
-      subEl.textContent = text;
-      subEl.style.opacity = '1';
-      subEl.style.transform = 'translateY(0)';
-    }, 350);
-  }
-
-  function type() {
-    if (paused) return;
-    const phrase = phrases[phraseIdx].text;
-
-    if (!deleting) {
-      headlineEl.textContent = phrase.slice(0, charIdx);
-      headlineEl.appendChild(cursor);
-      charIdx++;
-      if (charIdx > phrase.length) {
-        updateSub(phrases[phraseIdx].sub);
-        paused = true;
-        setTimeout(() => { paused = false; deleting = true; type(); }, 2800);
-        return;
-      }
-      setTimeout(type, 55);
-    } else {
-      headlineEl.textContent = phrase.slice(0, charIdx);
-      headlineEl.appendChild(cursor);
-      charIdx--;
-      if (charIdx < 0) {
-        deleting = false;
-        phraseIdx = (phraseIdx + 1) % phrases.length;
-        charIdx = 0;
-        setTimeout(type, 400);
-        return;
-      }
-      setTimeout(type, 28);
-    }
-  }
-
-  /* start only when splash scrolls into view */
-  const splashObserver = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting && !started) {
-        started = true;
-        setTimeout(type, 400);
-        splashObserver.disconnect();
-      }
-    });
-  }, { threshold: 0.3 });
-  splashObserver.observe(document.querySelector('.motivational-splash'));
-
-  /* ── SCROLL FADE-IN ── */
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-  /* ── ACTIVE NAV ── */
-  const sections = document.querySelectorAll('section[id]');
-  const links    = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let cur = '';
-    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
-    links.forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--light-green)' : ''; });
-  });
-</script>
 </body>
 </html>
