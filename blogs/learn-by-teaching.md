@@ -2,7 +2,7 @@
 title: Learn by Teaching: Why Explaining Is the Fastest Way to Master Any Topic
 description: What learning by teaching is, why it works (the protégé effect and the Feynman Technique), and how Class 9 & 10 students can use it every day.
 date: 2026-11-01
-author: Ajit Mote
+author: Ajit
 author_role: Founding Engineer
 keywords: learn by teaching, learning by teaching, teach to learn, protégé effect, Feynman Technique, peer teaching
 tags: Learning by Teaching, Feynman Technique, Study Tips
