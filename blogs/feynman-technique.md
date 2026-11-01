@@ -2,7 +2,7 @@
 title: The Feynman Technique: How to Learn Anything in 4 Simple Steps
 description: A step-by-step guide to the Feynman Technique for students, with a worked Class 10 example and tips for using it with a study partner.
 date: 2026-11-03
-author: Ajit Mote
+author: Ajit
 author_role: Founding Engineer
 keywords: Feynman Technique, Feynman learning technique, Feynman method, how to use the Feynman Technique, Feynman Technique for students
 tags: Feynman Technique, Learning by Teaching, Study Tips
