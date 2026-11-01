@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="520" viewBox="0 0 1400 520">
+  <rect width="1400" height="520" fill="#fdf6ee"/>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#1a2a52"/>
+    </marker>
+  </defs>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <g transform="translate(40,90)">
+      <rect width="280" height="300" rx="24" fill="#ffffff" stroke="#52b788" stroke-width="3"/>
+      <circle cx="140" cy="70" r="40" fill="#52b788"/><text x="140" y="84" font-size="40" font-weight="bold" fill="#fff">1</text>
+      <text x="140" y="160" font-family="Georgia, serif" font-size="30" font-weight="bold" fill="#1a2a52">Pick a topic</text>
+      <text x="140" y="205" font-size="21" fill="#374151">Write its name at the</text>
+      <text x="140" y="235" font-size="21" fill="#374151">top of a blank page</text>
+    </g>
+    <g transform="translate(380,90)">
+      <rect width="280" height="300" rx="24" fill="#ffffff" stroke="#f4a58a" stroke-width="3"/>
+      <circle cx="140" cy="70" r="40" fill="#f4a58a"/><text x="140" y="84" font-size="40" font-weight="bold" fill="#fff">2</text>
+      <text x="140" y="160" font-family="Georgia, serif" font-size="30" font-weight="bold" fill="#1a2a52">Teach it</text>
+      <text x="140" y="205" font-size="21" fill="#374151">Explain in plain words</text>
+      <text x="140" y="235" font-size="21" fill="#374151">to a classmate</text>
+    </g>
+    <g transform="translate(720,90)">
+      <rect width="280" height="300" rx="24" fill="#ffffff" stroke="#f0c040" stroke-width="3"/>
+      <circle cx="140" cy="70" r="40" fill="#f0c040"/><text x="140" y="84" font-size="40" font-weight="bold" fill="#fff">3</text>
+      <text x="140" y="160" font-family="Georgia, serif" font-size="30" font-weight="bold" fill="#1a2a52">Find the gaps</text>
+      <text x="140" y="205" font-size="21" fill="#374151">Where you get stuck,</text>
+      <text x="140" y="235" font-size="21" fill="#374151">go back to the book</text>
+    </g>
+    <g transform="translate(1060,90)">
+      <rect width="300" height="300" rx="24" fill="#1a2a52"/>
+      <circle cx="150" cy="70" r="40" fill="#82b4ff"/><text x="150" y="84" font-size="40" font-weight="bold" fill="#fff">4</text>
+      <text x="150" y="160" font-family="Georgia, serif" font-size="30" font-weight="bold" fill="#ffffff">Simplify</text>
+      <text x="150" y="205" font-size="21" fill="#ffffff" opacity="0.75">Explain again until it</text>
+      <text x="150" y="235" font-size="21" fill="#ffffff" opacity="0.75">flows without notes</text>
+    </g>
+    <path d="M325 240 h50" stroke="#1a2a52" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M665 240 h50" stroke="#1a2a52" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M1005 240 h50" stroke="#1a2a52" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M860 395 C 860 470, 520 470, 520 400" fill="none" stroke="#f4a58a" stroke-width="3" stroke-dasharray="8 8" marker-end="url(#arrow)"/>
+    <text x="690" y="490" font-size="20" fill="#6b7280">repeat until there are no gaps left</text>
+  </g>
+</svg>

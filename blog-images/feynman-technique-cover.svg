@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#1a2a52"/>
+  <circle cx="1060" cy="90" r="220" fill="#2d6a4f" opacity="0.45"/>
+  <circle cx="140" cy="580" r="170" fill="#f4a58a" opacity="0.25"/>
+  <circle cx="960" cy="520" r="60" fill="#52b788" opacity="0.3"/>
+  <text x="90" y="170" font-family="Georgia, serif" font-size="26" letter-spacing="6" fill="#f4a58a">FEYNLEARN GUIDE</text>
+  <text x="90" y="280" font-family="Georgia, serif" font-size="84" font-weight="bold" fill="#ffffff">The Feynman</text>
+  <text x="90" y="375" font-family="Georgia, serif" font-size="84" font-weight="bold" font-style="italic" fill="#52b788">Technique</text>
+  <text x="90" y="455" font-family="Arial, sans-serif" font-size="30" fill="#ffffff" opacity="0.7">Learn anything in 4 simple steps</text>
+  <g transform="translate(860,250)">
+    <rect x="0" y="0" width="230" height="150" rx="18" fill="#ffffff"/>
+    <rect x="0" y="0" width="230" height="150" rx="18" fill="none" stroke="#52b788" stroke-width="4"/>
+    <path d="M30 50 h120 M30 80 h170 M30 110 h90" stroke="#1a2a52" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="190" cy="115" r="18" fill="#f4a58a"/>
+  </g>
+</svg>

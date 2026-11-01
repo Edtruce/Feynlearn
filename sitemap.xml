@@ -5,4 +5,21 @@
     <lastmod>2026-11-01</lastmod>
     <image:image><image:loc>https://feynlearn.in/logoo2.png</image:loc></image:image>
   </url>
+  <url>
+    <loc>https://feynlearn.in/blog/</loc>
+    <lastmod>2026-11-03</lastmod>
+  </url>
+  <url>
+    <loc>https://feynlearn.in/blog/feynman-technique/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <image:image><image:loc>https://feynlearn.in/blog-images/feynman-technique-cover.svg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://feynlearn.in/blog/peer-teaching/</loc>
+    <lastmod>2026-11-02</lastmod>
+  </url>
+  <url>
+    <loc>https://feynlearn.in/blog/learn-by-teaching/</loc>
+    <lastmod>2026-11-01</lastmod>
+  </url>
 </urlset>

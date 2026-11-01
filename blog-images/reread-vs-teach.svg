@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560">
+  <rect width="1200" height="560" rx="0" fill="#ffffff"/>
+  <g font-family="Arial, sans-serif">
+    <rect x="40" y="40" width="540" height="480" rx="28" fill="#fdf6ee"/>
+    <text x="310" y="110" text-anchor="middle" font-family="Georgia, serif" font-size="34" font-weight="bold" fill="#f4a58a">Re-reading notes</text>
+    <g font-size="24" fill="#374151">
+      <text x="90" y="190">✗  Feels productive</text>
+      <text x="90" y="250">✗  Recognising, not recalling</text>
+      <text x="90" y="310">✗  Gaps stay hidden</text>
+      <text x="90" y="370">✗  Easy to postpone</text>
+      <text x="90" y="430">✗  Forgotten after the exam</text>
+    </g>
+    <rect x="620" y="40" width="540" height="480" rx="28" fill="#1a2a52"/>
+    <text x="890" y="110" text-anchor="middle" font-family="Georgia, serif" font-size="34" font-weight="bold" fill="#52b788">Teaching it</text>
+    <g font-size="24" fill="#ffffff">
+      <text x="670" y="190">✓  Active recall from memory</text>
+      <text x="670" y="250">✓  Organise ideas into a story</text>
+      <text x="670" y="310">✓  Gaps show up instantly</text>
+      <text x="670" y="370">✓  A peer keeps you consistent</text>
+      <text x="670" y="430">✓  Builds confidence too</text>
+    </g>
+  </g>
+</svg>

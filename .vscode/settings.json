@@ -1,0 +1,6 @@
+{
+  // blog/ is generated from blogs/*.md by scripts/build-blog.js — edit the .md files instead
+  "files.exclude": {
+    "blog/": true
+  }
+}
