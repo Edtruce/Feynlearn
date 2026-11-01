@@ -1,2 +1,4 @@
 # Generated from blogs/*.md during deploy (scripts/build-blog.js)
 /blog/
+# Vercel build output (scripts/build-blog.js --out public)
+/public/

@@ -417,3 +417,17 @@ ${urls.map(u => `  <url>
 `);
 
 console.log(`built ${posts.length} post(s) → blog/, sitemap.xml updated`);
+
+// ── optional: copy the finished site into a folder (Vercel serves "public/") ──
+//   node scripts/build-blog.js --out public
+const outIdx = process.argv.indexOf('--out');
+if (outIdx > -1) {
+  const dest = path.join(ROOT, process.argv[outIdx + 1] || 'public');
+  const SKIP = new Set(['.git', '.github', '.vscode', 'node_modules', 'scripts', 'blogs', path.basename(dest)]);
+  fs.rmSync(dest, { recursive: true, force: true });
+  for (const name of fs.readdirSync(ROOT)) {
+    if (SKIP.has(name) || /\.md$/i.test(name) || /^(\.gitignore|vercel\.json|package(-lock)?\.json)$/.test(name)) continue;
+    fs.cpSync(path.join(ROOT, name), path.join(dest, name), { recursive: true });
+  }
+  console.log(`site copied → ${path.relative(ROOT, dest)}/ (${fs.readdirSync(dest).join(', ')})`);
+}
