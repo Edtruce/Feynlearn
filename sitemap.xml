@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://feynlearn.in/</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <image:image><image:loc>https://feynlearn.in/logoo2.png</image:loc></image:image>
   </url>
   <url>
@@ -21,5 +21,11 @@
   <url>
     <loc>https://feynlearn.in/blog/learn-by-teaching/</loc>
     <lastmod>2026-11-01</lastmod>
+  </url>
+  <url>
+    <loc>https://earlyaccess.feynlearn.in/</loc>
+  </url>
+  <url>
+    <loc>https://learn.feynlearn.in/login</loc>
   </url>
 </urlset>
