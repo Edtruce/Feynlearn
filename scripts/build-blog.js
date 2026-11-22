@@ -7,7 +7,7 @@
  * Reads   blogs/*.md            (Markdown with front matter, see blogs/README.md)
  * Writes  blog/index.html       (list of posts)
  *         blog/<slug>/index.html (one page per post)
- *         sitemap.xml           (homepage + blog URLs)
+ *         sitemap.xml           (homepage + blog URLs + the subdomain sites, see SUBDOMAIN_URLS)
  *
  * Styling is copied from the <style> block in index.html at build time, so blog
  * pages always match the homepage. Only article-specific rules are added below.
@@ -400,18 +400,28 @@ fs.writeFileSync(path.join(OUT_DIR, 'index.html'), page({
 }));
 
 // ── sitemap ──────────────────────────────────────────────────────────────
+// Feynlearn's other sites live on subdomains of this domain. They are listed here so search
+// engines discover them. A sitemap on one host may only list another host's URLs if that host's
+// robots.txt points back to this sitemap ("Sitemap: https://feynlearn.in/sitemap.xml"), or both
+// hosts are verified in the same Google Search Console domain property. Keep both in place.
+// No <lastmod> for these: they are not built here, so a fake "modified today" would be misleading.
+const SUBDOMAIN_URLS = [
+  'https://earlyaccess.feynlearn.in/',  // early access sign-up page
+  'https://learn.feynlearn.in/login',    // the learning app (its root redirects to /login)
+];
+
 const today = new Date().toISOString().slice(0, 10);
 const urls = [
   { loc: `${SITE}/`, lastmod: today, image: DEFAULT_IMAGE },
   { loc: listUrl, lastmod: posts[0]?.updated || today },
   ...posts.map(p => ({ loc: `${SITE}/blog/${p.slug}/`, lastmod: p.updated, image: p.cover ? absUrl(p.cover) : '' })),
+  ...SUBDOMAIN_URLS.map(loc => ({ loc })),
 ];
 fs.writeFileSync(path.join(ROOT, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${urls.map(u => `  <url>
-    <loc>${u.loc}</loc>
-    <lastmod>${u.lastmod}</lastmod>${u.image ? `\n    <image:image><image:loc>${esc(u.image)}</image:loc></image:image>` : ''}
+    <loc>${u.loc}</loc>${u.lastmod ? `\n    <lastmod>${u.lastmod}</lastmod>` : ''}${u.image ? `\n    <image:image><image:loc>${esc(u.image)}</image:loc></image:image>` : ''}
   </url>`).join('\n')}
 </urlset>
 `);
